@@ -492,7 +492,11 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stro
 .cm-next:focus-visible{outline:2px solid rgba(225,29,46,.35);outline-offset:2px}
 .cm-next{border:0;border-radius:99px;padding:10px 18px;background:var(--grad);color:#fff;font-size:13.5px;font-weight:700;box-shadow:0 10px 18px -10px rgba(179,18,31,.9)}
 /* home: daily data strip */
-.s-home .quota{display:flex;flex-direction:column;gap:8px;width:100%;padding:11px 16px;border:1px solid rgba(155,18,32,.06);border-radius:18px;background:#fff;box-shadow:0 12px 24px -22px rgba(122,13,23,.55);text-align:left}
+.s-home .quota{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px 11px 16px;border:1px solid rgba(155,18,32,.06);border-radius:18px;background:#fff;box-shadow:0 12px 24px -22px rgba(122,13,23,.55);text-align:left}
+.s-home .q-in{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px;padding:0;border:0;background:none;text-align:left}
+.s-home .q-up{flex:none;display:flex;align-items:center;gap:6px;height:36px;padding:0 14px 0 12px;border:0;border-radius:99px;background:var(--grad);color:#fff;font-size:13px;font-weight:700;box-shadow:0 10px 18px -10px rgba(179,18,31,.9)}
+.s-home .q-up svg{width:15px;height:15px}
+.s-home .q-up:active{transform:scale(.96)}
 .s-home .q-t{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--sub)}
 .s-home .q-t b{font-size:13px;color:var(--ink);font-weight:600}
 .s-home .q-bar{height:6px;border-radius:9px;background:#F3E7E9;overflow:hidden}
@@ -639,6 +643,8 @@ const LIMIT=1024;                                   // MB
 const today=()=>new Date().toDateString();
 let usage=store.get('usage',{d:today(),mb:0});if(usage.d!==today())usage={d:today(),mb:0};
 const limited=()=>!isPrem();
+let pendingPlan=null;                               // plan a guest picked before logging in
+const afterAuth=()=>{const k=pendingPlan;pendingPlan=null;k?go('checkout',{plan:k},'replace'):go('home',{},'replace')};
 const usedTxt=mb=>mb<1000?Math.round(mb)+' MB':(mb/1024).toFixed(2)+' GB';
 const resetIn=()=>{const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const t=Math.round((m-n)/60000);return `${t/60|0}h ${t%60}m`};
 function tryConnect(){
@@ -653,9 +659,9 @@ setInterval(()=>{if(VPN.s!=='on'||!limited())return;
   if(before<LIMIT*.8&&usage.mb>=LIMIT*.8)snack(`You’ve used 80% of today’s 1 GB. ${user&&user.guest?'Log in':'Upgrade'} to keep going.`,'warn',user&&user.guest?'Log in':'Upgrade',()=>user&&user.guest?(setUser(null),go('login')):go('plans'));
   if(usage.mb>=LIMIT){VPN.stop();openLimit('reached')}
   VPN.subs.forEach(f=>f())},1000);
-function openLimit(why){const g=!user||user.guest;
+function openLimit(why){const g=!user||user.guest;if(why!=='upgrade')pendingPlan=null;
   const title=why==='upgrade'?'Log in to upgrade':why==='info'?(g?'Guest mode':'Free plan'):'Daily limit reached';
-  const text=why==='upgrade'?'Create a free account or log in first, then choose a Premium plan.'
+  const text=why==='upgrade'?`Log in or create a free account and we’ll take you straight to checkout for <b>${pendingPlan?planName(pendingPlan):'Premium'}</b>.`
     :why==='info'?`You get <b>1 GB of free data per day</b>. ${g?'Log in to upgrade for unlimited data and keep your settings.':'Upgrade to Premium for unlimited data.'} Used today: <b>${usedTxt(usage.mb)}</b>.`
     :`You’ve used today’s 1 GB of free data, so the VPN was turned off. ${g?'Log in, then upgrade for unlimited data and keep browsing protected.':'Upgrade to Premium for unlimited data.'}`;
   openSheet(`<div class="lim"><span class="lim-ic">${ic(why==='reached'?'warn':'dl')}</span><h2 id="shT">${title}</h2><p>${text}</p>
@@ -664,7 +670,7 @@ function openLimit(why){const g=!user||user.guest;
   $('#sheet .js-li')?.addEventListener('click',()=>{setUser(null);go('login')});
   $('#sheet .js-su')?.addEventListener('click',()=>{setUser(null);go('signup')});
   $('#sheet .js-upg')?.addEventListener('click',()=>{closeSheet(true);go('plans')});
-  $('#sheet .js-later').addEventListener('click',()=>closeSheet())}
+  $('#sheet .js-later').addEventListener('click',()=>{pendingPlan=null;closeSheet()})}
 
 /* ================= toast + sheet ================= */
 const app=$('#app');
@@ -681,7 +687,7 @@ $('#dim').addEventListener('click',()=>closeSheet());
 const COACH=[
   {el:'.orb',pad:12,round:true,t:'Tap to connect',d:'One tap turns on your private connection. Tap again any time to disconnect.'},
   {el:'.loc',pad:6,t:'Choose a location',d:'We pick the fastest server for you. Tap here to switch country or city.'},
-  {el:'.quota',pad:6,t:'Your daily data',d:'Guests and the Free plan get 1 GB per day. Tap to see what’s left, or log in to upgrade.'},
+  {el:'.quota',pad:6,t:'Your daily data',d:'Guests and the Free plan get 1 GB per day. Tap Upgrade any time for unlimited data on every server.'},
   {el:'#nav [data-tab="servers"]',pad:-4,r:'22px',t:'All servers',d:'Browse every country, search by city and save your favourites.'},
   {el:'#nav [data-tab="menu"]',pad:-4,r:'22px',t:'Menu & settings',d:'Kill switch, protocol, your plan and support are all here.'}];
 const coach={k:0,steps:[],back:null,
@@ -805,8 +811,8 @@ function formKit(r,fields,pwHint){
 const busy=b=>{b.disabled=true;b.innerHTML='<span class="spin"></span>'};
 const socialRow=`<div class="or">or</div><button class="btn o js-google">${GOOGLE}Continue with Google</button><button class="btn o red js-guest">Continue as Guest</button>`;
 const social=r=>{
-  $('.js-google',r).addEventListener('click',e=>{busy(e.currentTarget);setTimeout(()=>{setUser({name:'Alex Morgan',email:'alex.morgan@gmail.com',plan:'free'});toast('Signed in with Google');go('home',{},'replace')},900)});
-  $('.js-guest',r).addEventListener('click',()=>{setUser({guest:true});go('home',{},'replace')})};
+  $('.js-google',r).addEventListener('click',e=>{busy(e.currentTarget);setTimeout(()=>{setUser({name:'Alex Morgan',email:'alex.morgan@gmail.com',plan:'free'});toast('Signed in with Google');afterAuth()},900)});
+  $('.js-guest',r).addEventListener('click',()=>{pendingPlan=null;setUser({guest:true});go('home',{},'replace')})};
 
 SCREENS.signup={title:'Sign Up',cls:'s-auth',html:p=>`
 ${LOGO}
@@ -842,7 +848,7 @@ ${socialRow}
   init(r){const ok=formKit(r,['email','pw']);
     $('form',r).addEventListener('submit',e=>{e.preventDefault();if(!ok())return;busy($('[type=submit]',r));
       const email=$('#email',r).value.trim(),nm=email.split('@')[0].replace(/[._-]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-      T.after(()=>{setUser({name:nm,email,plan:'free'});toast('Welcome back, '+nm.split(' ')[0]);go('home',{},'replace')},900)});
+      T.after(()=>{setUser({name:nm,email,plan:'free'});toast('Welcome back, '+nm.split(' ')[0]);afterAuth()},900)});
     social(r);$('.js-signup',r).addEventListener('click',()=>go('signup',{email:$('#email',r).value.trim()}));
     $('.js-forgot',r).addEventListener('click',()=>go('forgot',{email:$('#email',r).value.trim()}))}};
 
@@ -904,7 +910,7 @@ ${helpLine}`,
         if(c==='000000'){btn.textContent='Verify email';shake();toast('Incorrect code. Try again');clear();ins[0].focus();return}
         box.classList.add('ok');btn.textContent='Email verified';
         setUser({name:p.name||'',email:p.email||'',plan:'free'});toast('Welcome to RusnetVPN'+(firstName()?', '+firstName():''));
-        T.after(()=>go('home',{},'replace'),1000)},900)}
+        T.after(afterAuth,1000)},900)}
     btn.addEventListener('click',submit);
     T.after(()=>ins[0].focus(),450)}};
 
@@ -917,7 +923,7 @@ SCREENS.home={title:'Home',fade:'#FFF5F3',html:()=>`
 <div class="shadow"></div>
 <div class="time">00:00:00</div>
 <div class="body">
-  ${limited()?`<button class="quota js-quota"><span class="q-t"><b>${user&&user.guest?'Guest':'Free plan'} · daily data</b><span class="js-qv"></span></span><span class="q-bar"><i></i></span></button>`:''}
+  ${limited()?`<div class="quota"><button class="q-in js-quota" aria-label="Daily data details"><span class="q-t"><b>${user&&user.guest?'Guest':'Free plan'} · daily data</b><span class="js-qv"></span></span><span class="q-bar"><i></i></span></button><button class="q-up js-qup">${ic('crown')}Upgrade</button></div>`:''}
   <button class="loc"><span class="flag"></span><span class="nm"><b></b><small></small></span>${ic('right')}</button>
   <div class="grid">
     <div class="sp"><small>${ic('down','color:#E11D2E')}Download</small><b><span class="js-dl">—</span><em>Mb/s</em></b><svg class="ln" viewBox="0 0 140 28" preserveAspectRatio="none"><path d="M0 22 C 15 18, 25 26, 40 18 S 65 14, 80 16 S 110 8, 140 10" fill="none" stroke="#F2B8BE" stroke-width="2.2" stroke-linecap="round"/></svg></div>
@@ -937,6 +943,7 @@ SCREENS.home={title:'Home',fade:'#FFF5F3',html:()=>`
     T.every(()=>{if(VPN.s!=='on')return;dl=Math.max(40,dl+(Math.random()*8-4));ul=Math.max(8,ul+(Math.random()*3-1.5));paint()},2500);
     orb.addEventListener('click',()=>VPN.s==='off'?tryConnect():VPN.stop());
     $('.js-quota',r)?.addEventListener('click',()=>openLimit('info'));
+    $('.js-qup',r)?.addEventListener('click',()=>go('plans'));
     $('.loc',r).addEventListener('click',()=>go('servers'));
     $('.js-me',r).addEventListener('click',()=>go('menu'));
     if(!store.get('coach',false))T.after(()=>coach.start(),900)}};
@@ -1041,7 +1048,7 @@ ${g?`<div class="pro"><div class="who"><span class="av">${ic('user','width:24px;
     $('[data-tour]',r).addEventListener('click',()=>{store.set('coach',false);go('home')});
     $('.js-acc',r)?.addEventListener('click',()=>go('account'));
     $('.js-up',r)?.addEventListener('click',()=>go('plans'));
-    $('.js-join',r)?.addEventListener('click',()=>{setUser(null);go('login')});
+    $('.js-join',r)?.addEventListener('click',()=>{pendingPlan=null;setUser(null);go('login')});
     $('.js-new',r)?.addEventListener('click',()=>{setUser(null);go('signup')});
     $('[data-a=proto]',r).addEventListener('click',()=>{let pick=opts.proto;
       openSheet(`<h2 id="shT">Protocol</h2><p>Choose how your device connects to RusnetVPN servers.</p>${Object.entries(PROTO).map(([k,[n,d]])=>`<button class="opt ${k===pick?'sel':''}" data-p="${k}" aria-pressed="${k===pick}"><span class="tx"><b>${n}</b><small>${d}</small></span><span class="rd"></span></button>`).join('')}<div class="btns"><button class="btn p js-apply">Apply</button></div>`);
@@ -1088,7 +1095,7 @@ ${isPrem()?`<div class="card" style="margin-top:6px">${mrow('card','Payment meth
       buy.innerHTML=pick===cur?'Your current plan':pick==='free'?'Switch to Free':p.total===0?`Start 7-day free trial${ic('arrow')}`:`Continue · ${money(p.total)}${ic('arrow')}`};
     $$('.pl-h',r).forEach(b=>b.addEventListener('click',()=>{const k=b.parentNode.dataset.p;if(pick===k)open=open===k?null:k;else{pick=k;open=k}paint()}));
     buy.addEventListener('click',()=>{
-      if(!user||user.guest){openLimit('upgrade');return}
+      if(!user||user.guest){pendingPlan=pick==='free'?null:pick;openLimit('upgrade');return}
       if(pick==='free'){cancel();return}
       go('checkout',{plan:pick})});
     $$('[data-a=soon]',r).forEach(b=>b.addEventListener('click',()=>toast($('b',b).textContent+' (contoh)')));
