@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RusnetVPN · Home options</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../vesper.css">
+<style>
+:root{--red:#E11D2E;--red-d:#9B1220;--grad:linear-gradient(135deg,#B3121F 0%,#E11D2E 52%,#FF5A4E 100%);--ink:#17121A;--sub:#6B5E63;--glass:rgba(255,255,255,.62)}
+@property --x{syntax:'<percentage>';inherits:true;initial-value:16.667%}
+body{margin:0;background:#EDE7E8;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink)}
+h1.t{margin:32px 48px 0;font-size:22px}
+.hint{margin:6px 48px 0;font-size:14px;color:var(--sub)}
+.board{display:flex;gap:56px;padding:28px 48px 56px;align-items:flex-start;overflow-x:auto}
+.shot{flex:none;display:flex;flex-direction:column;gap:14px}
+.cap{font-size:16px;font-weight:700}.cap span{font-weight:500;color:var(--sub)}
+.ph{position:relative;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(60,10,15,.45),0 0 0 1px rgba(23,18,26,.06);display:block;background:#fff}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:2px solid #B3121F;outline-offset:3px}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;display:block;flex:none}
+.top{position:absolute;left:24px;right:24px;top:22px;display:flex;align-items:center;justify-content:space-between;z-index:3}
+.brand{font-size:20px;font-weight:800;letter-spacing:-.02em}.brand b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+.flag{width:34px;height:24px;border-radius:5px;flex:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{50%{opacity:.3}}
+@keyframes dash{to{stroke-dashoffset:-28}}
+@keyframes pop{0%{transform:scale(.92)}60%{transform:scale(1.05)}100%{transform:none}}
+/* shared nav: dark bar, notch follows the active tab */
+.nv{position:absolute;left:16px;right:16px;bottom:16px;height:70px;display:flex;z-index:5;--x:16.667%;transition:--x .45s cubic-bezier(.3,.8,.3,1)}
+.nv-bar{position:absolute;inset:0;border-radius:24px;background:#1C171D;-webkit-mask:radial-gradient(circle at var(--x) 6px,transparent 37px,#000 38px);mask:radial-gradient(circle at var(--x) 6px,transparent 37px,#000 38px)}
+.nv-bub{position:absolute;left:var(--x);top:-22px;width:56px;height:56px;margin-left:-28px;border-radius:50%;background:var(--grad);box-shadow:0 12px 22px -8px rgba(200,16,46,.7)}
+.nv button{position:relative;flex:1;border:0;background:none;color:#A39BA0;display:flex;flex-direction:column;align-items:center;padding-top:22px;gap:5px;font:500 11px 'Plus Jakarta Sans',sans-serif}
+.nv button svg{width:24px;height:24px;transition:transform .4s cubic-bezier(.3,.8,.3,1)}
+.nv button.on{color:#fff;font-weight:700}.nv button.on svg{transform:translateY(-27px)}
+.nv button:focus-visible{outline:2px solid #fff;outline-offset:-6px}
+.tabmsg{position:absolute;left:0;right:0;top:50%;text-align:center;font-size:15px;color:var(--sub);display:none;z-index:4}
+.ph.away .tabmsg{display:block}.ph.away .scene{opacity:.08;pointer-events:none}
+.scene{transition:opacity .25s}
+
+/* ---------- A: glass globe ---------- */
+.a{background:radial-gradient(70% 38% at 88% 6%,rgba(255,90,78,.38),transparent 70%),radial-gradient(60% 34% at -10% 52%,rgba(225,29,46,.16),transparent 70%),linear-gradient(180deg,#FFFFFF 0%,#FFF4F2 60%,#FFE2DD 100%)}
+.a .pill{position:absolute;left:50%;top:84px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--glass);border:1px solid rgba(255,255,255,.9);box-shadow:0 8px 20px -12px rgba(155,18,32,.35);font-size:13px;font-weight:600;white-space:nowrap;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.a .pill i{width:8px;height:8px;border-radius:50%;background:#A39BA0}
+.a[data-s=connecting] .pill i{background:#F59E0B;animation:blink 1s infinite}
+.a[data-s=on] .pill i{background:#16A34A;box-shadow:0 0 0 4px rgba(22,163,74,.15)}
+.a .globe{position:absolute;left:50%;top:124px;width:330px;height:330px;margin-left:-165px}
+.a .arc{opacity:0;transition:opacity .3s}.a .dest{opacity:0;transition:opacity .3s}
+.a[data-s=connecting] .arc{opacity:1;stroke-dasharray:6 8;animation:dash .8s linear infinite}
+.a[data-s=on] .arc,.a[data-s=on] .dest{opacity:1}
+.a[data-s=connecting] .dest{opacity:.5}
+.a .card{position:absolute;left:16px;right:16px;bottom:114px;padding:20px;border-radius:30px;background:var(--glass);border:1px solid rgba(255,255,255,.95);box-shadow:0 30px 50px -30px rgba(122,13,23,.45);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);display:flex;flex-direction:column;gap:16px}
+.a .loc{display:flex;align-items:center;gap:12px}
+.a .loc .nm{flex:1;display:flex;flex-direction:column;line-height:1.3}.a .loc .nm b{font-size:16px}.a .loc .nm small{font-size:13px;color:var(--sub)}
+.a .chg{font-size:13px;font-weight:700;color:var(--red);padding:8px 12px;border-radius:999px;background:rgba(225,29,46,.08);border:0;font-family:inherit}
+.a .time{display:flex;align-items:baseline;justify-content:space-between}
+.a .time b{font-size:36px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.a .time small{font-size:13px;color:var(--sub)}
+.a .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.a .st{padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.7)}
+.a .st small{display:block;font-size:11px;color:var(--sub);font-weight:500}.a .st b{font-size:16px;font-variant-numeric:tabular-nums}.a .st b em{font-style:normal;font-size:11px;color:var(--sub);font-weight:500;margin-left:2px}
+.a .go{height:58px;border:0;border-radius:20px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;font:700 16px 'Plus Jakarta Sans',sans-serif;box-shadow:0 16px 26px -14px rgba(200,16,46,.8);transition:transform .12s}
+.a .go:active{transform:scale(.97)}
+.a[data-s=connecting] .go{background:#fff;color:var(--red);box-shadow:inset 0 0 0 1.5px var(--red)}
+.a[data-s=on] .go{background:#1C171D;box-shadow:0 16px 26px -16px rgba(28,23,29,.8)}
+
+/* ---------- B: red hero ---------- */
+.b{background:linear-gradient(180deg,#FFFFFF 0%,#FFF5F3 55%,#FFE4E0 100%)}
+.b .hero{position:absolute;left:0;right:0;top:0;height:420px;border-radius:0 0 44px 44px;overflow:hidden;color:#fff;background:radial-gradient(80% 60% at 90% 0%,rgba(255,138,128,.55),transparent 70%),radial-gradient(70% 50% at 0% 100%,rgba(92,10,18,.55),transparent 70%),linear-gradient(160deg,#B3121F 0%,#E11D2E 60%,#F0473D 100%)}
+.b .hero .off{position:absolute;inset:0;background:radial-gradient(80% 60% at 90% 0%,rgba(255,255,255,.12),transparent 70%),linear-gradient(160deg,#3B3236 0%,#2A2326 100%);transition:opacity .5s}
+.b[data-s=on] .hero .off,.b[data-s=connecting] .hero .off{opacity:0}
+.b .hero:before,.b .hero:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.16);z-index:1}
+.b .hero:before{width:520px;height:520px;right:-260px;top:-200px}.b .hero:after{width:360px;height:360px;left:-200px;bottom:-200px}
+.b .top{color:#fff}.b .top .brand b{background:none;color:#FFD0CA}
+.b .av{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35)}
+.b .htxt{position:absolute;z-index:2;left:28px;right:28px;top:104px;display:flex;flex-direction:column;gap:6px}
+.b .badge{align-self:flex-start;display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);font-size:13px;font-weight:600}
+.b .badge i{width:8px;height:8px;border-radius:50%;background:#C9BFC3}
+.b[data-s=connecting] .badge i{background:#FBBF24;animation:blink 1s infinite}.b[data-s=on] .badge i{background:#7CF0A6}
+.b .htxt small{font-size:14px;color:#FFDCD7;margin-top:18px}
+.b .htxt b{font-size:58px;font-weight:700;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.b .ip{margin-top:10px;font-size:14px;color:#FFDCD7}.b .ip b{font-size:14px;color:#fff;font-weight:600}
+.b .pw{position:absolute;z-index:3;left:50%;top:420px;width:112px;height:112px;margin:-56px 0 0 -56px;border-radius:50%;background:#fff;border:0;color:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(255,255,255,.55),0 24px 40px -18px rgba(122,13,23,.6);transition:transform .12s}
+.b .pw:active{transform:scale(.95)}
+.b .pw svg{width:44px;height:44px;stroke-width:2.2}
+.b .pw:after{content:"";position:absolute;inset:-6px;border-radius:50%;border:3px solid transparent;border-top-color:var(--red);border-right-color:rgba(225,29,46,.3);opacity:0}
+.b[data-s=connecting] .pw:after{opacity:1;animation:spin .9s linear infinite}
+.b[data-s=on] .pw{background:var(--grad);color:#fff}
+.b .pwl{position:absolute;z-index:3;left:0;right:0;top:486px;text-align:center;font-size:13px;font-weight:700;color:var(--red)}
+.b .body{position:absolute;left:20px;right:20px;top:516px;display:flex;flex-direction:column;gap:12px}
+.b .row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:22px;background:#fff;box-shadow:0 16px 30px -24px rgba(122,13,23,.5);border:1px solid rgba(155,18,32,.07);text-align:left;font-family:inherit;width:100%}
+.b .row .nm{flex:1;display:flex;flex-direction:column;line-height:1.3}.b .row .nm b{font-size:16px}.b .row .nm small{font-size:13px;color:var(--sub)}
+.b .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.b .sp{padding:14px 16px 10px;border-radius:22px;background:#fff;box-shadow:0 16px 30px -24px rgba(122,13,23,.5);border:1px solid rgba(155,18,32,.07)}
+.b .sp small{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sub);font-weight:600}
+.b .sp b{display:block;font-size:22px;margin-top:4px;font-variant-numeric:tabular-nums}.b .sp b em{font-style:normal;font-size:12px;color:var(--sub);font-weight:500;margin-left:3px}
+.b .sp svg.ln{width:100%;height:30px;display:block;margin-top:4px;transition:opacity .3s}
+.b:not([data-s=on]) .sp svg.ln{opacity:.18}
+
+/* ---------- C: glossy orb ---------- */
+.c{background:radial-gradient(90% 50% at 50% 38%,rgba(255,138,128,.28),transparent 70%),linear-gradient(180deg,#FFFFFF 0%,#FFF6F4 55%,#FFE0DB 100%)}
+.c .av{background:#fff;box-shadow:0 8px 18px -10px rgba(122,13,23,.4)}
+.c .hd{position:absolute;left:0;right:0;top:90px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+.c .hd small{font-size:14px;color:var(--sub);font-weight:500}
+.c .hd b{font-size:28px;font-weight:700;letter-spacing:-.02em}
+.c .orbw{position:absolute;left:50%;top:190px;width:230px;height:230px;margin-left:-115px}
+.c .halo{position:absolute;inset:-34px;border-radius:50%;background:conic-gradient(from 200deg,rgba(225,29,46,0),rgba(225,29,46,.55),rgba(255,138,128,.1),rgba(225,29,46,0));-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 3px));opacity:.25;transition:opacity .3s}
+.c[data-s=connecting] .halo{opacity:1;animation:spin 1.1s linear infinite}
+.c[data-s=on] .halo{opacity:1;animation:spin 8s linear infinite}
+.c .halo2{position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(225,29,46,.18)}
+.c .orb{position:absolute;inset:0;border-radius:50%;border:0;color:var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font:700 15px 'Plus Jakarta Sans',sans-serif;background:radial-gradient(circle at 34% 26%,#FFFFFF 0%,#FFF7F6 40%,#F4E3E4 80%,#E6CFD1 100%);box-shadow:inset 0 -18px 40px rgba(122,13,23,.12),inset 0 10px 24px rgba(255,255,255,.9),0 34px 50px -30px rgba(122,13,23,.55);transition:transform .12s}
+.c .orb:active{transform:scale(.96)}
+.c[data-s=on] .orb{color:#fff;background:radial-gradient(circle at 34% 26%,#FFB1A8 0%,#FF5A4E 22%,#E11D2E 52%,#9B1220 82%,#6E0A14 100%);box-shadow:inset 0 -18px 40px rgba(60,5,10,.45),inset 0 10px 24px rgba(255,255,255,.35),0 40px 60px -28px rgba(155,18,32,.85);animation:pop .5s ease}
+.c .orb:before{content:"";position:absolute;left:22%;top:9%;width:48%;height:26%;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.7),rgba(255,255,255,0));filter:blur(1px)}
+.c .orb svg{width:52px;height:52px;stroke-width:2.2;position:relative}
+.c .orb span{position:relative}
+.c .shadow{position:absolute;left:50%;top:452px;width:200px;height:26px;margin-left:-100px;border-radius:50%;background:radial-gradient(closest-side,rgba(122,13,23,.32),transparent);filter:blur(3px)}
+.c .time{position:absolute;left:0;right:0;top:494px;text-align:center;font-size:40px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.c .chips{position:absolute;left:20px;right:20px;top:552px;display:flex;justify-content:center;gap:8px}
+.c .chip{display:flex;align-items:center;gap:6px;padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid #fff;box-shadow:0 10px 20px -16px rgba(122,13,23,.5);font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.c .chip svg{width:15px;height:15px;color:var(--red)}
+.c .loc{position:absolute;left:20px;right:20px;top:616px;display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:24px;background:rgba(255,255,255,.8);border:1px solid #fff;box-shadow:0 18px 34px -24px rgba(122,13,23,.55);text-align:left}
+.c .loc .nm{flex:1;display:flex;flex-direction:column;line-height:1.3}.c .loc .nm b{font-size:16px}.c .loc .nm small{font-size:13px;color:var(--sub)}
+.note{max-width:1290px;margin:0 48px 48px;font-size:14px;color:var(--sub);line-height:1.6}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+img.brand{display:block;height:26px;width:auto}
+</style>
+</head>
+<body>
+<h1 class="t">RusnetVPN · Home, three directions</h1>
+<p class="hint">Klik tombol Connect di tiap ponsel: Connect → Connecting → Connected → Disconnect. Tab di nav juga bisa diklik.</p>
+<div class="board">
+
+<!-- A -->
+<div class="shot"><div class="cap">A · Glass Globe <span>· peta koneksi + kartu kaca</span></div>
+<div class="ph a" data-s="off"><div class="scene">
+<div class="top"><img class="brand" src="../img/rusnet-logo-light.png" alt="RusnetVPN"><span class="av" style="background:#fff;box-shadow:0 8px 18px -10px rgba(122,13,23,.4)">D</span></div>
+<div class="pill" role="status"><i></i><span data-off="Not protected" data-connecting="Connecting…" data-on="Protected"></span></div>
+<svg class="globe" viewBox="-165 -165 330 330" aria-hidden="true">
+<defs>
+<radialGradient id="gA" cx="35%" cy="30%" r="80%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".7" stop-color="#FFE9E6"/><stop offset="1" stop-color="#FFC9C2"/></radialGradient>
+<linearGradient id="arcA" x1="0" x2="1"><stop offset="0" stop-color="#FF8A80"/><stop offset="1" stop-color="#B3121F"/></linearGradient>
+<clipPath id="cA"><circle r="130"/></clipPath>
+</defs>
+<circle r="150" fill="none" stroke="rgba(225,29,46,.12)"/>
+<circle r="130" fill="url(#gA)" stroke="rgba(225,29,46,.25)"/>
+<g clip-path="url(#cA)" fill="none" stroke="rgba(155,18,32,.16)">
+<ellipse rx="130" ry="44"/><ellipse rx="130" ry="92"/><line x1="-130" x2="130"/>
+<ellipse rx="44" ry="130"/><ellipse rx="92" ry="130"/><line y1="-130" y2="130"/>
+<ellipse rx="130" ry="18" cy="-86"/><ellipse rx="130" ry="18" cy="86"/>
+</g>
+<path class="arc" d="M-62 38 Q -10 -120 70 -28" fill="none" stroke="url(#arcA)" stroke-width="3" stroke-linecap="round"/>
+<circle cx="-62" cy="38" r="7" fill="#fff" stroke="#E11D2E" stroke-width="3"/>
+<g class="dest"><circle cx="70" cy="-28" r="14" fill="rgba(225,29,46,.18)"/><circle cx="70" cy="-28" r="7" fill="#E11D2E"/></g>
+<g font-family="Plus Jakarta Sans" font-size="11" font-weight="600" fill="#17121A"><text x="-96" y="64">You</text><text class="dest" x="50" y="-46">Melbourne</text></g>
+</svg>
+<div class="card">
+<div class="loc"><span class="flag f-au"></span><span class="nm"><b>Australia</b><small>Melbourne · 32 ms</small></span><button class="chg">Change</button></div>
+<div class="time"><b class="js-time">00:00:00</b><small>Connected time</small></div>
+<div class="stats"><div class="st"><small>Download</small><b><span data-off="—" data-connecting="—" data-on="84.2"></span><em>Mb/s</em></b></div><div class="st"><small>Upload</small><b><span data-off="—" data-connecting="—" data-on="21.6"></span><em>Mb/s</em></b></div><div class="st"><small>Data left</small><b>984<em>MB</em></b></div></div>
+<button class="go js-go"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.3 6.8a8 8 0 1 0 11.4 0"/></svg><span data-off="Connect" data-connecting="Cancel" data-on="Disconnect"></span></button>
+</div>
+</div>
+<p class="tabmsg"></p>
+<nav class="nv"><span class="nv-bar"></span><span class="nv-bub"></span><button class="on" data-tab="0"><svg class="i" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg>Home</button><button data-tab="1"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/></svg>Server List</button><button data-tab="2"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Menu</button></nav>
+</div></div>
+
+<!-- B -->
+<div class="shot"><div class="cap">B · Red Hero <span>· gaya aplikasi bank modern</span></div>
+<div class="ph b" data-s="off"><div class="scene">
+<div class="hero"><span class="off"></span>
+<div class="top"><img class="brand" src="../img/rusnet-logo-white.png" alt="RusnetVPN"><span class="av">D</span></div>
+<div class="htxt"><span class="badge" role="status"><i></i><span data-off="Not protected" data-connecting="Connecting…" data-on="Protected"></span></span><small>Connected time</small><b class="js-time">00:00:00</b><span class="ip" data-html-off="Your IP &lt;b&gt;182.253.10.4&lt;/b&gt; · visible" data-html-connecting="Hiding your IP…" data-html-on="Your IP &lt;b&gt;103.21.244.18&lt;/b&gt; · hidden"></span></div>
+</div>
+<button class="pw js-go"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.3 6.8a8 8 0 1 0 11.4 0"/></svg></button>
+<span class="pwl" data-off="Tap to connect" data-connecting="Tap to cancel" data-on="Tap to disconnect"></span>
+<div class="body">
+<button class="row"><span class="flag f-au"></span><span class="nm"><b>Australia</b><small>Melbourne · 32 ms</small></span><svg class="i" viewBox="0 0 24 24" style="color:#B9AEB2"><path d="M9 18l6-6-6-6"/></svg></button>
+<div class="grid">
+<div class="sp"><small><svg class="i" viewBox="0 0 24 24" style="width:14px;height:14px;color:#E11D2E"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Download</small><b><span data-off="—" data-connecting="—" data-on="84.2"></span><em>Mb/s</em></b><svg class="ln" viewBox="0 0 140 30" preserveAspectRatio="none"><path d="M0 22 C 15 18, 25 26, 40 16 S 65 20, 80 10 S 110 14, 140 6" fill="none" stroke="#E11D2E" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+<div class="sp"><small><svg class="i" viewBox="0 0 24 24" style="width:14px;height:14px;color:#9B1220"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Upload</small><b><span data-off="—" data-connecting="—" data-on="21.6"></span><em>Mb/s</em></b><svg class="ln" viewBox="0 0 140 30" preserveAspectRatio="none"><path d="M0 18 C 20 24, 30 12, 50 16 S 80 24, 95 14 S 120 18, 140 12" fill="none" stroke="#9B1220" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+</div>
+</div>
+</div>
+<p class="tabmsg"></p>
+<nav class="nv"><span class="nv-bar"></span><span class="nv-bub"></span><button class="on" data-tab="0"><svg class="i" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg>Home</button><button data-tab="1"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/></svg>Server List</button><button data-tab="2"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Menu</button></nav>
+</div></div>
+
+<!-- C -->
+<div class="shot"><div class="cap">C · Glossy Orb <span>· tombol 3D mewah di tengah</span></div>
+<div class="ph c" data-s="off"><div class="scene">
+<div class="top"><img class="brand" src="../img/rusnet-logo-light.png" alt="RusnetVPN"><span class="av">D</span></div>
+<div class="hd" role="status"><small data-off="Your connection is not private" data-connecting="Securing your connection" data-on="Your connection is private"></small><b data-off="Not connected" data-connecting="Connecting…" data-on="Connected"></b></div>
+<div class="orbw"><span class="halo"></span><span class="halo2"></span><button class="orb js-go"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.3 6.8a8 8 0 1 0 11.4 0"/></svg><span data-off="Connect" data-connecting="Cancel" data-on="Disconnect"></span></button></div>
+<div class="shadow"></div>
+<div class="time js-time">00:00:00</div>
+<div class="chips"><span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg><span data-off="— Mb/s" data-connecting="— Mb/s" data-on="84.2 Mb/s"></span></span><span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg><span data-off="— Mb/s" data-connecting="— Mb/s" data-on="21.6 Mb/s"></span></span><span class="chip"><svg class="i" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span data-off="— ms" data-connecting="— ms" data-on="32 ms"></span></span></div>
+<button class="loc"><span class="flag f-au"></span><span class="nm"><b>Australia</b><small>Melbourne · Fastest</small></span><svg class="i" viewBox="0 0 24 24" style="color:#B9AEB2"><path d="M9 18l6-6-6-6"/></svg></button>
+</div>
+<p class="tabmsg"></p>
+<nav class="nv"><span class="nv-bar"></span><span class="nv-bub"></span><button class="on" data-tab="0"><svg class="i" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg>Home</button><button data-tab="1"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/></svg>Server List</button><button data-tab="2"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Menu</button></nav>
+</div></div>
+
+</div>
+<p class="note">Angka kecepatan, ping, dan IP di sini contoh tampilan. Aplikasi sekarang belum mengukur kecepatan, jadi kalau dipakai, angkanya akan disimulasikan.</p>
+<script>
+const fmt=ms=>{const s=Math.floor(ms/1000);return [s/3600|0,(s/60|0)%60,s%60].map(n=>String(n).padStart(2,'0')).join(':')};
+document.querySelectorAll('.ph').forEach(ph=>{
+  let t0=0,wait=null,tick=null;
+  const set=s=>{
+    ph.dataset.s=s;
+    ph.querySelectorAll('[data-'+s+']').forEach(e=>e.textContent=e.getAttribute('data-'+s));
+    ph.querySelectorAll('[data-html-'+s+']').forEach(e=>e.innerHTML=e.getAttribute('data-html-'+s));
+    ph.querySelectorAll('.js-go').forEach(b=>b.setAttribute('aria-label',{off:'Connect',connecting:'Cancel connecting',on:'Disconnect'}[s]));
+    clearInterval(tick);
+    const times=ph.querySelectorAll('.js-time');
+    if(s==='on'){t0=Date.now();tick=setInterval(()=>times.forEach(e=>e.textContent=fmt(Date.now()-t0)),1000)}
+    else times.forEach(e=>e.textContent='00:00:00');
+  };
+  ph.querySelectorAll('.js-go').forEach(b=>b.addEventListener('click',()=>{
+    const s=ph.dataset.s;clearTimeout(wait);
+    if(s==='off'){set('connecting');wait=setTimeout(()=>set('on'),1800)}
+    else set('off');
+  }));
+  const nav=ph.querySelector('.nv'),msg=ph.querySelector('.tabmsg');
+  nav.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    const k=+b.dataset.tab;
+    nav.style.setProperty('--x',((k+.5)/3*100).toFixed(3)+'%');
+    nav.querySelectorAll('button').forEach(x=>{x.classList.toggle('on',x===b);x.toggleAttribute('aria-current',x===b)});
+    ph.classList.toggle('away',k!==0);
+    msg.textContent=k?b.textContent.trim()+' (contoh, isi halaman ini tetap seperti di aplikasi)':'';
+  }));
+  set('off');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RusnetVPN · Home B</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../vesper.css">
+<style>
+:root{--red:#E11D2E;--red-d:#9B1220;--grad:linear-gradient(135deg,#B3121F 0%,#E11D2E 52%,#FF5A4E 100%);--ink:#17121A;--sub:#6B5E63;--glass:rgba(255,255,255,.62)}
+@property --x{syntax:'<percentage>';inherits:true;initial-value:16.667%}
+body{margin:0;min-height:100dvh;display:flex;align-items:center;justify-content:center;background:#EDE7E8;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink)}
+.ph{position:relative;width:390px;height:844px;border-radius:44px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(60,10,15,.45),0 0 0 1px rgba(23,18,26,.06);display:block;background:#fff}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:2px solid #B3121F;outline-offset:3px}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;display:block;flex:none}
+.top{position:absolute;left:24px;right:24px;top:22px;display:flex;align-items:center;justify-content:space-between;z-index:3}
+.brand{font-size:20px;font-weight:800;letter-spacing:-.02em}.brand b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+.flag{width:34px;height:24px;border-radius:5px;flex:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{50%{opacity:.3}}
+@keyframes dash{to{stroke-dashoffset:-28}}
+@keyframes pop{0%{transform:scale(.92)}60%{transform:scale(1.05)}100%{transform:none}}
+/* shared nav: dark bar, notch follows the active tab */
+.nv{position:absolute;left:16px;right:16px;bottom:16px;height:70px;display:flex;z-index:5;--x:16.667%;transition:--x .45s cubic-bezier(.3,.8,.3,1)}
+.nv-bar{position:absolute;inset:0;border-radius:24px;background:#1C171D;-webkit-mask:radial-gradient(circle at var(--x) 6px,transparent 37px,#000 38px);mask:radial-gradient(circle at var(--x) 6px,transparent 37px,#000 38px)}
+.nv-bub{position:absolute;left:var(--x);top:-22px;width:56px;height:56px;margin-left:-28px;border-radius:50%;background:var(--grad);box-shadow:0 12px 22px -8px rgba(200,16,46,.7)}
+.nv button{position:relative;flex:1;border:0;background:none;color:#A39BA0;display:flex;flex-direction:column;align-items:center;padding-top:22px;gap:5px;font:500 11px 'Plus Jakarta Sans',sans-serif}
+.nv button svg{width:24px;height:24px;transition:transform .4s cubic-bezier(.3,.8,.3,1)}
+.nv button.on{color:#fff;font-weight:700}.nv button.on svg{transform:translateY(-27px)}
+.nv button:focus-visible{outline:2px solid #fff;outline-offset:-6px}
+.tabmsg{position:absolute;left:0;right:0;top:50%;text-align:center;font-size:15px;color:var(--sub);display:none;z-index:4}
+.ph.away .tabmsg{display:block}.ph.away .scene{opacity:.08;pointer-events:none}
+.scene{transition:opacity .25s}
+
+@media (max-width:430px){body{background:#fff;align-items:stretch}.ph{width:100vw!important;height:100dvh!important;border-radius:0!important;box-shadow:none!important}}
+/* ---------- B: red hero ---------- */
+.b{background:linear-gradient(180deg,#FFFFFF 0%,#FFF5F3 55%,#FFE4E0 100%)}
+.b .hero{position:absolute;left:0;right:0;top:0;height:420px;border-radius:0 0 44px 44px;overflow:hidden;color:#fff;background:radial-gradient(80% 60% at 90% 0%,rgba(255,138,128,.55),transparent 70%),radial-gradient(70% 50% at 0% 100%,rgba(92,10,18,.55),transparent 70%),linear-gradient(160deg,#B3121F 0%,#E11D2E 60%,#F0473D 100%)}
+.b .hero .off{position:absolute;inset:0;background:radial-gradient(80% 60% at 90% 0%,rgba(255,255,255,.12),transparent 70%),linear-gradient(160deg,#3B3236 0%,#2A2326 100%);transition:opacity .5s}
+.b[data-s=on] .hero .off,.b[data-s=connecting] .hero .off{opacity:0}
+.b .hero:before,.b .hero:after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.16);z-index:1}
+.b .hero:before{width:520px;height:520px;right:-260px;top:-200px}.b .hero:after{width:360px;height:360px;left:-200px;bottom:-200px}
+.b .top{color:#fff}.b .top .brand b{background:none;color:#FFD0CA}
+.b .av{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35)}
+.b .htxt{position:absolute;z-index:2;left:28px;right:28px;top:104px;display:flex;flex-direction:column;gap:6px}
+.b .badge{align-self:flex-start;display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);font-size:13px;font-weight:600}
+.b .badge i{width:8px;height:8px;border-radius:50%;background:#C9BFC3}
+.b[data-s=connecting] .badge i{background:#FBBF24;animation:blink 1s infinite}.b[data-s=on] .badge i{background:#7CF0A6}
+.b .htxt small{font-size:14px;color:#FFDCD7;margin-top:18px}
+.b .htxt b{font-size:58px;font-weight:700;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.b .ip{margin-top:10px;font-size:14px;color:#FFDCD7}.b .ip b{font-size:14px;color:#fff;font-weight:600}
+.b .pw{position:absolute;z-index:3;left:50%;top:420px;width:112px;height:112px;margin:-56px 0 0 -56px;border-radius:50%;background:#fff;border:0;color:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(255,255,255,.55),0 24px 40px -18px rgba(122,13,23,.6);transition:transform .12s}
+.b .pw:active{transform:scale(.95)}
+.b .pw svg{width:44px;height:44px;stroke-width:2.2}
+.b .pw:after{content:"";position:absolute;inset:-6px;border-radius:50%;border:3px solid transparent;border-top-color:var(--red);border-right-color:rgba(225,29,46,.3);opacity:0}
+.b[data-s=connecting] .pw:after{opacity:1;animation:spin .9s linear infinite}
+.b[data-s=on] .pw{background:var(--grad);color:#fff}
+.b .pwl{position:absolute;z-index:3;left:0;right:0;top:486px;text-align:center;font-size:13px;font-weight:700;color:var(--red)}
+.b .body{position:absolute;left:20px;right:20px;top:516px;display:flex;flex-direction:column;gap:12px}
+.b .row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:22px;background:#fff;box-shadow:0 16px 30px -24px rgba(122,13,23,.5);border:1px solid rgba(155,18,32,.07);text-align:left;font-family:inherit;width:100%}
+.b .row .nm{flex:1;display:flex;flex-direction:column;line-height:1.3}.b .row .nm b{font-size:16px}.b .row .nm small{font-size:13px;color:var(--sub)}
+.b .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.b .sp{padding:14px 16px 10px;border-radius:22px;background:#fff;box-shadow:0 16px 30px -24px rgba(122,13,23,.5);border:1px solid rgba(155,18,32,.07)}
+.b .sp small{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sub);font-weight:600}
+.b .sp b{display:block;font-size:22px;margin-top:4px;font-variant-numeric:tabular-nums}.b .sp b em{font-style:normal;font-size:12px;color:var(--sub);font-weight:500;margin-left:3px}
+.b .sp svg.ln{width:100%;height:30px;display:block;margin-top:4px;transition:opacity .3s}
+.b:not([data-s=on]) .sp svg.ln{opacity:.18}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+img.brand{display:block;height:26px;width:auto}
+</style>
+</head>
+<body>
+<div class="ph b" data-s="off"><div class="scene">
+<div class="hero"><span class="off"></span>
+<div class="top"><img class="brand" src="../img/rusnet-logo-white.png" alt="RusnetVPN"><span class="av">D</span></div>
+<div class="htxt"><span class="badge" role="status"><i></i><span data-off="Not protected" data-connecting="Connecting…" data-on="Protected"></span></span><small>Connected time</small><b class="js-time">00:00:00</b><span class="ip" data-html-off="Your IP &lt;b&gt;182.253.10.4&lt;/b&gt; · visible" data-html-connecting="Hiding your IP…" data-html-on="Your IP &lt;b&gt;103.21.244.18&lt;/b&gt; · hidden"></span></div>
+</div>
+<button class="pw js-go"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.3 6.8a8 8 0 1 0 11.4 0"/></svg></button>
+<span class="pwl" data-off="Tap to connect" data-connecting="Tap to cancel" data-on="Tap to disconnect"></span>
+<div class="body">
+<button class="row"><span class="flag f-au"></span><span class="nm"><b>Australia</b><small>Melbourne · 32 ms</small></span><svg class="i" viewBox="0 0 24 24" style="color:#B9AEB2"><path d="M9 18l6-6-6-6"/></svg></button>
+<div class="grid">
+<div class="sp"><small><svg class="i" viewBox="0 0 24 24" style="width:14px;height:14px;color:#E11D2E"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Download</small><b><span data-off="—" data-connecting="—" data-on="84.2"></span><em>Mb/s</em></b><svg class="ln" viewBox="0 0 140 30" preserveAspectRatio="none"><path d="M0 22 C 15 18, 25 26, 40 16 S 65 20, 80 10 S 110 14, 140 6" fill="none" stroke="#E11D2E" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+<div class="sp"><small><svg class="i" viewBox="0 0 24 24" style="width:14px;height:14px;color:#9B1220"><path d="M12 19V5M6 11l6-6 6 6"/></svg>Upload</small><b><span data-off="—" data-connecting="—" data-on="21.6"></span><em>Mb/s</em></b><svg class="ln" viewBox="0 0 140 30" preserveAspectRatio="none"><path d="M0 18 C 20 24, 30 12, 50 16 S 80 24, 95 14 S 120 18, 140 12" fill="none" stroke="#9B1220" stroke-width="2.2" stroke-linecap="round"/></svg></div>
+</div>
+</div>
+</div>
+<p class="tabmsg"></p>
+<nav class="nv"><span class="nv-bar"></span><span class="nv-bub"></span><button class="on" data-tab="0"><svg class="i" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg>Home</button><button data-tab="1"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/></svg>Server List</button><button data-tab="2"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Menu</button></nav>
+</div>
+<script>
+const fmt=ms=>{const s=Math.floor(ms/1000);return [s/3600|0,(s/60|0)%60,s%60].map(n=>String(n).padStart(2,'0')).join(':')};
+document.querySelectorAll('.ph').forEach(ph=>{
+  let t0=0,wait=null,tick=null;
+  const set=s=>{
+    ph.dataset.s=s;
+    ph.querySelectorAll('[data-'+s+']').forEach(e=>e.textContent=e.getAttribute('data-'+s));
+    ph.querySelectorAll('[data-html-'+s+']').forEach(e=>e.innerHTML=e.getAttribute('data-html-'+s));
+    ph.querySelectorAll('.js-go').forEach(b=>b.setAttribute('aria-label',{off:'Connect',connecting:'Cancel connecting',on:'Disconnect'}[s]));
+    clearInterval(tick);
+    const times=ph.querySelectorAll('.js-time');
+    if(s==='on'){t0=Date.now();tick=setInterval(()=>times.forEach(e=>e.textContent=fmt(Date.now()-t0)),1000)}
+    else times.forEach(e=>e.textContent='00:00:00');
+  };
+  ph.querySelectorAll('.js-go').forEach(b=>b.addEventListener('click',()=>{
+    const s=ph.dataset.s;clearTimeout(wait);
+    if(s==='off'){set('connecting');wait=setTimeout(()=>set('on'),1800)}
+    else set('off');
+  }));
+  const nav=ph.querySelector('.nv'),msg=ph.querySelector('.tabmsg');
+  nav.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    const k=+b.dataset.tab;
+    nav.style.setProperty('--x',((k+.5)/3*100).toFixed(3)+'%');
+    nav.querySelectorAll('button').forEach(x=>{x.classList.toggle('on',x===b);x.toggleAttribute('aria-current',x===b)});
+    ph.classList.toggle('away',k!==0);
+    msg.textContent=k?b.textContent.trim()+' (contoh, isi halaman ini tetap seperti di aplikasi)':'';
+  }));
+  set('off');
+});
+</script>
+</body>
+</html>

@@ -100,9 +100,9 @@ async function run(){
  act('toggleAll');ok('Terms: Expand all',[...D.querySelectorAll('#pol details')].every(d=>d.open));
  W.eval("A.tab('servers')");await wait(1000);act('exp','au');ok('Server cities show location pin + latency',D.querySelectorAll('.cities .city .pin').length===3&&D.querySelector('.cities').textContent.includes('ms'));
  act('pick','au|Perth');ok('picked city shows on Home',S().screen==='home'&&D.body.textContent.includes('Perth'));
- W.eval("S.perm=true;S.data=500;VPN.connect()");ok('connecting: progress ring, radar sweep, orbit dots',!!D.querySelector('.prog-fg')&&!!D.querySelector('.sweep')&&D.querySelectorAll('.orbit').length===3);
+ W.eval("S.perm=true;S.data=500;VPN.connect()");ok('connecting: two rings ripple',D.querySelectorAll('.vx.connecting .vx-ring').length===2);
  await wait(700);ok('connecting: status step text changes',D.getElementById('cstep').textContent==='Securing connection…');
- await wait(1300);ok('connected: burst effect',!!D.querySelector('.burst')&&S().vpn==='on');
+ await wait(1300);ok('connected: two rings orbit',D.querySelectorAll('.vx.on .vx-ring i').length===2&&S().vpn==='on');
  W.eval("startSession('user','demouser@email.com');S.accounts['demouser@email.com'].setup={account:true,connect:true,server:true,fav:true,notif:false,hidden:false};goRoot('home')");
  W.eval("A.tab('menu');go('notifications')");W.eval("A.tab('home')");ok('finishing last task → "You\'re all set!"',S().ov==='setup'&&D.body.textContent.includes("all set"));
  act('hideSetup');ok('Finish hides checklist button',!D.querySelector('.setupbtn'));

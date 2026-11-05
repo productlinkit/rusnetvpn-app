@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0C1A4D">
-<title>VesperVPN</title>
+<meta name="theme-color" content="#C8102E">
+<title>RusnetVPN</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="vesper.css">
 <style>
@@ -31,29 +31,11 @@ a,[data-act]{cursor:pointer}
 .btn:disabled{background:#EEF1F6;color:#8A94A6;box-shadow:none;cursor:not-allowed}
 .errt:empty{display:none}
 .otp input{width:62px;height:62px;border-radius:16px;border:1.5px solid #8C8C8C;text-align:center;font:500 26px 'Plus Jakarta Sans',sans-serif;outline:0;color:var(--ink);background:#fff}
-.otp input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,.25)}
+.otp input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(225,29,46,.25)}
 .otp.err input{border-color:#E5484D;background:var(--err-bg)}
 /* home: responsive, light like the design */
-.hero{top:max(12px,env(safe-area-inset-top));display:flex;flex-direction:column}
-.hero.g{top:48px}
-.hero.on{background:linear-gradient(165deg,#E5E2F4 0%,#EEEDF6 55%,#E7E4F3 100%);border-color:#DCD8EF}
-.hero.on .stat{color:var(--ink2)!important}
-.hero.on .r1{background:rgba(255,255,255,.35)}.hero.on .r2{background:rgba(255,255,255,.5)}
-.hero.on .pw{background:linear-gradient(180deg,#E4DDF6 0%,#C3B6EA 100%);color:#fff;box-shadow:0 20px 40px -18px rgba(91,72,160,.45);animation:none}
-.hero.cn{background:linear-gradient(165deg,#E7E5F3,#EFEEF6);border-color:#DFDCEE}
-.hero.cn .pw{background:linear-gradient(180deg,#E6E1F6,#C9BEEC);color:#374151}
-.vis{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;min-height:200px;padding-top:30px}
-.vis .ring{top:50%!important;transform:translate(-50%,-56%)}
-.pw{position:relative!important;left:auto!important;top:auto!important;margin:0!important;flex:none;border:0;cursor:pointer}
 
-.pw .i{stroke-width:2.4}
-.stat{position:static!important}
-.card{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;margin:8px}
-@media (max-height:720px){.pw{width:128px!important;height:128px!important}.pw .i{width:50px!important;height:50px!important}.r1{width:400px!important;height:400px!important}.r2{width:260px!important;height:260px!important}}
-.fastp{display:inline-flex;align-items:center;gap:6px;border:1.5px solid #E2E8F0;background:#F6F8FB;border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600;color:var(--mute);flex:none}
 .qcc{border:0;font-family:inherit;cursor:pointer;color:var(--ink)}
-.qb{position:absolute;top:6px;right:calc(50% - 30px);width:20px;height:20px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 3px rgba(0,0,0,.15)}
-.qb .i{width:12px;height:12px;stroke-width:2.4}
 /* motion */
 @keyframes up{from{transform:translateY(100%)}}
 @keyframes fade{from{opacity:0}}
@@ -72,14 +54,12 @@ body{line-height:1.5}
 .pill,.pro,.qcc small{font-size:13px}
 .premcard .stats span{font-size:14px}
 .pill.gold{background:linear-gradient(135deg,#B45309,#92400E)}
-.hero.fail .stat span{color:#A3191C!important;font-weight:600}
-.card{gap:16px!important;padding:24px 20px 20px!important}
 .plan{padding:16px 18px}.feat{gap:9px}
 .eye{min-width:44px;min-height:44px;justify-content:center;align-items:center;margin-right:-10px}
 .lnk,.lbl a{display:inline-block;padding:4px 2px;margin:-4px -2px}
 .tog{min-width:50px;min-height:30px}
-:focus-visible{outline:3px solid #2563EB;outline-offset:2px;border-radius:8px}
-.inp:focus-within{box-shadow:0 0 0 3px rgba(37,99,235,.25)}
+:focus-visible{outline:3px solid #E11D2E;outline-offset:2px;border-radius:8px}
+.inp:focus-within{box-shadow:0 0 0 3px rgba(225,29,46,.25)}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .topalert{position:absolute;left:16px;right:16px;top:max(12px,env(safe-area-inset-top));z-index:6;background:#fff!important;border-color:#D6DEEC!important;box-shadow:0 16px 32px -16px rgba(8,15,38,.45);animation:alertDown .4s cubic-bezier(.2,.9,.3,1.15) .15s both;padding-right:6px!important;align-items:flex-start}
 .alert-x{width:44px;height:44px;margin:-10px -2px -10px 0;border:0;background:none;color:var(--mute);display:flex;align-items:center;justify-content:center;border-radius:50%;flex:none}
@@ -123,25 +103,13 @@ body{line-height:1.5}
 .chatbar{gap:10px;padding:12px 16px max(14px,env(safe-area-inset-bottom));border-top:1px solid var(--line);background:#fff}
 .sendb{width:48px;height:48px;border-radius:50%;border:0;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
 /* ---------- connecting: progress ring, radar sweep, orbiting dots ---------- */
-.prog{position:absolute;width:212px;height:212px;left:50%;top:50%;margin:-106px 0 0 -106px;transform:rotate(-90deg);pointer-events:none}
-.prog-bg{fill:none;stroke:rgba(47,107,255,.14);stroke-width:6}
-.prog-fg{fill:none;stroke:url(#pg);stroke-width:6;stroke-linecap:round;stroke-dasharray:629;stroke-dashoffset:629;animation:progFill 1.8s cubic-bezier(.4,0,.2,1) forwards;filter:drop-shadow(0 0 6px rgba(47,107,255,.6))}
-@keyframes progFill{to{stroke-dashoffset:0}}
-.sweep{position:absolute;left:50%;top:50%;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;background:conic-gradient(from 0deg,rgba(47,107,255,0) 0deg,rgba(47,107,255,0) 280deg,rgba(47,107,255,.28) 350deg,rgba(47,107,255,0) 360deg);animation:spin 1.6s linear infinite;-webkit-mask:radial-gradient(circle,transparent 82px,#000 84px,#000 70%,transparent 71%);mask:radial-gradient(circle,transparent 82px,#000 84px,#000 70%,transparent 71%);pointer-events:none}
-.orbit{position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none;animation:spin linear infinite}
-.orbit i{position:absolute;top:-5px;left:50%;margin-left:-5px;width:10px;height:10px;border-radius:50%;background:#2F6BFF;box-shadow:0 0 12px 2px rgba(47,107,255,.7)}
-.orbit.o1{width:250px;height:250px;margin:-125px 0 0 -125px;animation-duration:1.4s}
-.orbit.o2{width:290px;height:290px;margin:-145px 0 0 -145px;animation-duration:2.1s;animation-direction:reverse}.orbit.o2 i{width:7px;height:7px;margin-left:-3.5px;background:#7FA2FF}
-.orbit.o3{width:330px;height:330px;margin:-165px 0 0 -165px;animation-duration:2.8s}.orbit.o3 i{width:6px;height:6px;margin-left:-3px;background:#A78BFA}
-.pwwrap.connecting .pw .i{animation:iconPulse 1s ease-in-out infinite}
-@keyframes iconPulse{50%{opacity:.45;transform:scale(.92)}}
+
+
 .cstat{display:flex;flex-direction:column;align-items:center;gap:2px}
 .cstat small{font-size:13px;color:var(--mute);font-weight:500}
 .cstat small.swap{animation:fadeUp .3s ease}
 .dots i{font-style:normal;animation:blink 1.2s infinite}.dots i:nth-child(2){animation-delay:.2s}.dots i:nth-child(3){animation-delay:.4s}
-.burst{display:none;position:absolute;inset:-6px;border-radius:50%;border:3px solid rgba(124,96,220,.6)}
-.fx-on .burst{display:block;animation:burst .8s ease-out forwards}
-@keyframes burst{from{transform:scale(.9);opacity:1}to{transform:scale(2.1);opacity:0}}
+
 /* ---------- onboarding carousel ---------- */
 .obview{overflow:hidden;flex:none;touch-action:pan-y;user-select:none}
 .obtrack{display:flex;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
@@ -158,7 +126,7 @@ body{line-height:1.5}
 .obdot.on{width:44px}.obdot.on i{width:32px;background:var(--grad)}
 /* ---------- coach marks: one shared style ---------- */
 .spot{position:absolute;z-index:20;pointer-events:none;box-shadow:0 0 0 9999px rgba(8,15,38,.55),0 0 0 3px rgba(255,255,255,.9)}
-.spot.light{box-shadow:0 0 0 9999px rgba(8,15,38,.18),0 0 0 3px rgba(67,97,238,.6)}
+.spot.light{box-shadow:0 0 0 9999px rgba(8,15,38,.18),0 0 0 3px rgba(255,77,77,.6)}
 .coach{position:absolute;z-index:21;background:#fff;border-radius:20px;padding:16px 18px 14px;box-shadow:0 24px 48px -16px rgba(8,15,38,.45);display:flex;flex-direction:column;gap:4px;animation:coachIn .35s cubic-bezier(.2,.9,.3,1.2)}
 .coach .carrow{position:absolute;top:-7px;width:16px;height:16px;margin-left:-8px;background:#fff;transform:rotate(45deg);border-radius:3px}
 .coach.above .carrow{top:auto;bottom:-7px}
@@ -193,7 +161,7 @@ body{line-height:1.5}
 .sp-shield{position:relative;z-index:1;animation:spIn .55s cubic-bezier(.2,.9,.3,1.35) both,spOut .4s ease-in 2.05s forwards}
 .sp-grad{opacity:0;animation:fadeTo .5s ease 1.25s forwards}
 .sp-check{stroke-dasharray:90;stroke-dashoffset:90;animation:draw .45s cubic-bezier(.6,0,.2,1) .7s forwards}
-.sp-glow{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(79,107,255,.55),transparent 65%);opacity:0;animation:glow 1.3s ease 1.2s forwards}
+.sp-glow{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,90,90,.55),transparent 65%);opacity:0;animation:glow 1.3s ease 1.2s forwards}
 .sp-logo{opacity:0;animation:logoIn .65s cubic-bezier(.2,.8,.2,1) 2.3s forwards}
 @keyframes spIn{from{opacity:0;transform:scale(.4) rotate(-8deg)}}
 @keyframes spOut{to{opacity:0;transform:scale(.55) translateY(-8px)}}
@@ -211,30 +179,15 @@ body{line-height:1.5}
 @keyframes bob{0%,100%{translate:0 0}50%{translate:0 -6px}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}}
 /* ---------- home motion ---------- */
-.pwwrap{position:relative;display:flex;align-items:center;justify-content:center}
-.pw{transition:transform .15s}.pw:active{transform:scale(.94)}
-.hero .r1{animation:breathe 5s ease-in-out infinite}.hero .r2{animation:breathe 5s ease-in-out .8s infinite}
-@keyframes breathe{0%,100%{transform:translate(-50%,-56%) scale(1)}50%{transform:translate(-50%,-56%) scale(1.045)}}
-.wave{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(47,107,255,.45);animation:wave 2s cubic-bezier(.2,.6,.3,1) infinite;pointer-events:none}
-.wave:nth-child(2){animation-delay:.66s}.wave:nth-child(3){animation-delay:1.33s}
-.pwwrap.on .wave{border-color:rgba(140,118,214,.35);animation-duration:3.2s}
-@keyframes wave{from{transform:scale(1);opacity:1}to{transform:scale(1.9);opacity:0}}
-.fx-on .pw{animation:pwOn .7s cubic-bezier(.2,.9,.3,1.4)!important}
-.fx-fail .pw{animation:shake .45s ease}
-.fx-off .pw{animation:pwOff .4s ease}
-.fx-on .stat,.fx-off .stat,.fx-fail .stat,.fx-connecting .stat{animation:fadeUp .35s ease}
-.fx-on .card .btn,.fx-off .card .btn,.fx-connecting .card .btn,.fx-fail .card .btn{animation:fadeTo .3s ease both;opacity:0}
-.fx-on .datap{animation:dropIn .45s cubic-bezier(.2,.9,.3,1.3)}
+
+
 .datap .dot{animation:blink 1.6s ease-in-out infinite}
 @keyframes pwOn{0%{transform:scale(.9)}55%{transform:scale(1.07)}100%{transform:scale(1)}}
-@keyframes pwOff{from{transform:scale(1.04)}}
+
 @keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
-@keyframes dropIn{from{opacity:0;transform:translate(-50%,-14px)}}
+
 @keyframes blink{50%{opacity:.35}}
-.screen-in .hero .card{animation:fadeUp .5s cubic-bezier(.2,.8,.2,1) .05s both}
-.screen-in .qcc{animation:fadeUp .4s ease both}.screen-in .qcc:nth-child(2){animation-delay:.08s}.screen-in .qcc:nth-child(3){animation-delay:.16s}
-.screen-in .vis .pwwrap{animation:pwIn .6s cubic-bezier(.2,.9,.3,1.3) both}
-@keyframes pwIn{from{opacity:0;transform:scale(.8)}}
+
 .tip.w{animation:fadeUp .4s ease both}
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.sp-shield{display:none}.sp-logo{opacity:1}}
 
@@ -254,6 +207,80 @@ a.li,.li[data-act]{cursor:pointer}
 .pmlogo{height:40px;padding:0 12px;border-radius:8px;background:#E3E8F8;display:flex;align-items:center;font-size:15px;font-weight:800;font-style:italic}
 .dot-li{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:500;color:var(--ink)}
 .dot-li:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--grad)}
+/* ---------- app background: white fading to red ---------- */
+.ph{background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFF 50%,#FFF0EE 78%,#FFD9D4 100%)!important}
+/* ---------- home: one power button, two rings that move with it ---------- */
+.vx{position:absolute;inset:0;display:flex;flex-direction:column;overflow-y:auto;scrollbar-width:none;padding-bottom:calc(104px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#FFFFFF 0%,#FFF6F5 45%,#FFE3DF 80%,#FFCFC8 100%);color:var(--ink);--rule:rgba(155,18,32,.14);--sub:#5B4B4D}
+.vx-top{flex:none;display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:max(16px,env(safe-area-inset-top)) 24px 0}
+.vx-top .logo{font-size:20px;text-align:left}
+.logo-img{height:.85em;width:auto;display:inline-block;vertical-align:middle}
+.vx-top .logo-img{height:26px}
+.vx-guest{font-size:13px;color:var(--ink2)}.vx-guest a{color:var(--ink);font-weight:600;text-underline-offset:3px}
+.vx.trial .vx-top{visibility:hidden}
+.vx .setupbtn{position:relative;top:auto;right:auto;width:44px;height:44px}
+.vx .setupbtn svg{inset:0}
+.vx-art{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:78px;padding:70px 0 16px}
+.vx-orb{position:relative;width:150px;height:150px}
+.vx-ring{position:absolute;left:50%;top:50%;border-radius:50%;border:1.5px solid rgba(225,29,46,.22);pointer-events:none}
+.vx-ring.r1{width:204px;height:204px;margin:-102px 0 0 -102px}
+.vx-ring.r2{width:264px;height:264px;margin:-132px 0 0 -132px;border-color:rgba(225,29,46,.14)}
+.vx-ring i{display:none;position:absolute;left:50%;top:-5px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 4px rgba(255,255,255,.8)}
+.vx-ring.r2 i{width:8px;height:8px;margin-left:-4px;top:-4px}
+.vx.connecting .vx-ring{border-color:rgba(225,29,46,.45);animation:vxRipple 1.6s ease-out infinite}
+.vx.connecting .vx-ring.r2{animation-delay:.5s}
+.vx.on .vx-ring{border-color:rgba(225,29,46,.35)}
+.vx.on .vx-ring i{display:block}
+.vx.on .vx-ring.r1{animation:vxSpin 7s linear infinite}
+.vx.on .vx-ring.r2{animation:vxSpin 11s linear infinite reverse}
+.vx.fail .vx-ring{border-style:dashed;border-color:rgba(91,75,77,.3)}
+@keyframes vxRipple{0%{transform:scale(.75);opacity:0}30%{opacity:1}100%{transform:scale(1.08);opacity:0}}
+@keyframes vxSpin{to{transform:rotate(360deg)}}
+.vx-go{position:relative;z-index:1;width:150px;height:150px;padding:0;border-radius:50%;border:1.5px solid rgba(225,29,46,.35);background:#fff;color:#C8102E;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 18px 36px -18px rgba(155,18,32,.45);transition:transform .12s}
+.vx-go .i{width:48px;height:48px;stroke-width:2.2}
+.vx-go:active{transform:scale(.95)}
+.vx.on .vx-go{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 20px 40px -16px rgba(200,16,46,.75)}
+.vx.fail .vx-go{color:var(--ink2);border-color:rgba(91,75,77,.3)}
+.fx-on .vx-go{animation:pwOn .6s cubic-bezier(.2,.9,.3,1.4)}
+.vx-state{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;padding:0 24px}
+.vx-state b{font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.vx.on .vx-state b{color:#B3121F}
+.vx-state small{font-size:15px;color:var(--sub);font-variant-numeric:tabular-nums}
+.vx-panel{flex:none;display:flex;flex-direction:column;padding:10px 24px 10px}
+.vx-data{display:flex;justify-content:space-between;margin-bottom:4px;font-size:14px;color:var(--sub)}
+.vx-data a{color:#B3121F;font-weight:700}
+.vx-loc{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:10px 14px;background:#fff;border:1px solid var(--rule);border-radius:18px;color:var(--ink);text-align:left;font-size:16px;margin-top:6px}
+.vx-loc .flag{width:36px;height:26px;border-radius:5px;flex:none}
+.vx-loc .nm{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.35}
+.vx-loc .nm b{font-weight:600}.vx-loc .nm small{font-size:13px;color:var(--sub)}
+.vx-loc>.i{color:var(--faint)}
+.vx-bolt{width:36px;display:flex;justify-content:center;color:#E11D2E;flex:none}
+.vx-fast{font-size:13px;font-weight:600;color:#B3121F;flex:none}
+.vx-qc{margin-top:16px}
+.vx-qc>b{display:block;font-size:14px;font-weight:600;margin-bottom:8px}
+.vx .qc{display:flex;gap:10px}
+.vx .qcc{flex:1 1 0;min-width:0;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px 4px;background:#fff;border:1px solid var(--rule);border-radius:16px;color:var(--ink);font-size:13px;font-weight:600;position:relative;overflow:hidden;white-space:nowrap}
+.vx .qcc .flag{width:30px;height:21px;border-radius:4px}
+.vx .qcc .qb{position:absolute;top:6px;right:8px;display:flex}
+.vx .qcc .qb .i{width:13px;height:13px;stroke-width:2.4}
+.vx .empty{background:#fff;border:1px dashed rgba(155,18,32,.25);border-radius:16px;padding:14px;text-align:center;font-size:14px;color:var(--sub)}
+.vx-go:focus-visible,.vx-loc:focus-visible,.vx .qcc:focus-visible{outline:2px solid #B3121F;outline-offset:4px}
+@media (max-height:700px){.vx-art{gap:56px;padding:48px 0 10px}.vx-orb,.vx-go{width:124px;height:124px}.vx-ring.r1{width:170px;height:170px;margin:-85px 0 0 -85px}.vx-ring.r2{width:216px;height:216px;margin:-108px 0 0 -108px}.vx-go .i{width:40px;height:40px}}
+/* ---------- nav: dark bar, notch follows the active tab ---------- */
+@property --x{syntax:'<percentage>';inherits:true;initial-value:50%}
+.tabs{left:16px;right:16px;bottom:calc(14px + env(safe-area-inset-bottom));height:70px;border-radius:0;background:none;padding:0;gap:0;align-items:stretch;--x:var(--to)}
+.tabs.go{animation:navX .45s cubic-bezier(.3,.8,.3,1) both}
+@keyframes navX{from{--x:var(--from)}to{--x:var(--to)}}
+.tabs-bar{position:absolute;inset:0;border-radius:22px;background:#1F1F23;-webkit-mask:radial-gradient(circle at var(--x) 6px,transparent 37px,#000 38px);mask:radial-gradient(circle at var(--x) 6px,transparent 37px,#000 38px)}
+.tabs:before{content:"";position:absolute;inset:8px 12px -4px;border-radius:22px;box-shadow:0 16px 30px -12px rgba(92,10,18,.45);pointer-events:none}
+.tabs-bub{position:absolute;left:var(--x);top:-22px;width:56px;height:56px;margin-left:-28px;border-radius:50%;background:var(--grad);box-shadow:0 10px 20px -8px rgba(200,16,46,.65)}
+.tab{position:relative;z-index:1;flex:1 1 0;min-width:0;padding:22px 0 0;border:0;border-radius:16px;background:none;color:#A1A1AA;flex-direction:column;justify-content:flex-start;gap:5px;font-size:11px;font-weight:500}
+.tab .i{width:24px;height:24px}
+.tab.on{background:none;box-shadow:none;color:#fff;font-weight:700}
+.tab.on .i{stroke:#fff;transform:translateY(-27px)}
+.tabs.go .tab.on .i{animation:navIcon .45s cubic-bezier(.3,.8,.3,1) both}
+@keyframes navIcon{from{transform:none;opacity:0}}
+.tabs.go .tab.on span{animation:fade .45s ease both}
+.tab:focus-visible{outline:2px solid #fff;outline-offset:-6px}
 </style>
 </head>
 <body>
@@ -309,7 +336,7 @@ briefcase:'<rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5a2 
 sliders:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>'
 };
 const ic=(n,c='',st='')=>`<svg class="i ${c}" style="${st}" viewBox="0 0 24 24" aria-hidden="true">${I[n]}</svg>`;
-const shieldSvg=(fill,check)=>`<svg viewBox="0 0 160 192" width="80" height="96" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FB0FF"/><stop offset="1" stop-color="#2563EB"/></linearGradient></defs><path d="M70 6a28 28 0 0 1 20 0l46 17a24 24 0 0 1 16 22v78a24 24 0 0 1-10 19l-50 37a24 24 0 0 1-28 0L14 142A24 24 0 0 1 4 123V45a24 24 0 0 1 16-22z" fill="${fill}"/>${check?'<path d="M52 100l18 18 40-40" fill="none" stroke="#0E1F5C" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>':''}</svg>`;
+const shieldSvg=(fill,check)=>`<svg viewBox="0 0 160 192" width="80" height="96" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF9A8F"/><stop offset="1" stop-color="#E11D2E"/></linearGradient></defs><path d="M70 6a28 28 0 0 1 20 0l46 17a24 24 0 0 1 16 22v78a24 24 0 0 1-10 19l-50 37a24 24 0 0 1-28 0L14 142A24 24 0 0 1 4 123V45a24 24 0 0 1 16-22z" fill="${fill}"/>${check?'<path d="M52 100l18 18 40-40" fill="none" stroke="#5C0A12" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>':''}</svg>`;
 
 /* ================= data ================= */
 const COUNTRIES=[['au','Australia',['Melbourne','Sydney','Perth'],1],['at','Austria',['Vienna','Salzburg'],1],['be','Belgium',['Brussels','Antwerp'],1],
@@ -374,12 +401,14 @@ const stop=k=>{clearTimeout(T[k]);delete T[k]};
 /* ================= shared components ================= */
 const $=s=>document.querySelector(s);
 const safeTop=()=>`<div class="top-safe"></div>`;
-const logo=(st='')=>`<p class="logo" style="${st}">Vesper<b>VPN</b></p>`;
-const tabs=a=>`<nav class="tabs">${[['home','home','Home'],['servers','server','Server List'],['menu','grid','Menu']].map(([s,i,l])=>`<a class="tab ${a===s?'on':''}" data-act="tab" data-arg="${s}">${s==='home'&&a==='home'?`<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" fill="var(--blue)" stroke="var(--blue)"/><path d="M12 16v3" stroke="#fff"/></svg>`:ic(i)}${l}</a>`).join('')}</nav>`;
+const logo=(st='')=>`<p class="logo" style="${st}"><img class="logo-img" src="img/rusnet-logo-light.png" alt="RusnetVPN"></p>`;
+let tabPrev=null;
+const tabs=a=>{const T=[['home','home','Home'],['servers','server','Server List'],['menu','grid','Menu']],i=T.findIndex(t=>t[0]===a),from=tabPrev==null?i:tabPrev,x=k=>((k+.5)/3*100).toFixed(3)+'%';tabPrev=i;
+return `<nav class="tabs ${from!==i?'go':''}" aria-label="Main" style="--to:${x(i)};--from:${x(from)}"><span class="tabs-bar" aria-hidden="true"></span><span class="tabs-bub" aria-hidden="true"></span>${T.map(([s,n,l])=>`<button class="tab ${a===s?'on':''}" data-act="tab" data-arg="${s}" ${a===s?'aria-current="page"':''}>${ic(n)}<span>${l}</span></button>`).join('')}</nav>`};
 const backBack=()=>`<a class="back" data-act="back">${ic('back')}Back</a>`;
 const backTitle=t=>`<a class="back" data-act="back" style="font-size:26px;font-weight:700">${ic('back')}${t}</a>`;
 const arrowTitle=t=>`<div class="topbar"><a data-act="back" aria-label="Back" style="color:var(--ink)">${ic('arrow')}</a><h1 class="h2">${t}</h1></div>`;
-const arrowLogo=()=>`<div class="row" style="padding:6px 20px;position:relative;justify-content:center"><a data-act="back" aria-label="Back" style="position:absolute;left:20px;color:var(--ink)">${ic('arrow')}</a><p class="logo sm">Vesper<b>VPN</b></p></div>`;
+const arrowLogo=()=>`<div class="row" style="padding:6px 20px;position:relative;justify-content:center"><a data-act="back" aria-label="Back" style="position:absolute;left:20px;color:var(--ink)">${ic('arrow')}</a><p class="logo sm"><img class="logo-img" src="img/rusnet-logo-light.png" alt="RusnetVPN"></p></div>`;
 const flag=c=>`<span class="flag f-${c}" aria-hidden="true"></span>`;
 const fld=(label,id,o={})=>`<div class="field" style="${o.fst||''}"><label class="lbl" for="${id}" style="${o.lst||''}">${label}${o.right||''}</label><div class="inp ${o.cls||''}" id="w-${id}"><input id="${id}" type="${o.type||'text'}" placeholder="${o.ph||''}" value="${o.val||''}" ${o.ro?'readonly':''} autocomplete="off">${o.type==='password'?`<button class="eye" type="button" data-act="eye" data-arg="${id}" aria-label="Show password">${ic('eye')}</button>`:''}</div>${o.strength?`<div class="str" id="st-${id}">${'<i></i>'.repeat(o.strength)}</div><p class="help" id="sl-${id}">Strength</p>`:o.help?`<p class="help" id="sl-${id}">${o.help}</p>`:''}<p class="${o.greyErr?'help':'errt'}" id="e-${id}"></p></div>`;
 const val=id=>($('#'+id)||{}).value||'';
@@ -398,8 +427,8 @@ const SC={};
 /* 01 Splash & Onboarding */
 SC.splash=()=>`<div class="splash sp" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
 <div class="sp-glow"></div>
-<div class="sp-shield"><svg viewBox="0 0 160 192" width="80" height="96" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FB0FF"/><stop offset="1" stop-color="#2563EB"/></linearGradient></defs><path d="M70 6a28 28 0 0 1 20 0l46 17a24 24 0 0 1 16 22v78a24 24 0 0 1-10 19l-50 37a24 24 0 0 1-28 0L14 142A24 24 0 0 1 4 123V45a24 24 0 0 1 16-22z" fill="#fff"/><path class="sp-grad" d="M70 6a28 28 0 0 1 20 0l46 17a24 24 0 0 1 16 22v78a24 24 0 0 1-10 19l-50 37a24 24 0 0 1-28 0L14 142A24 24 0 0 1 4 123V45a24 24 0 0 1 16-22z" fill="url(#sg)"/><path class="sp-check" d="M52 100l18 18 40-40" fill="none" stroke="#0E1F5C" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-<p class="logo sp-logo" style="color:#fff;font-size:52px;position:absolute">Vesper<span style="background:linear-gradient(135deg,#7FA2FF,#4361EE);-webkit-background-clip:text;background-clip:text;color:transparent">VPN</span></p></div>`;
+<div class="sp-shield"><img src="img/rusnet-mark-white.png" alt="" style="width:84px;height:auto;display:block"></div>
+<img class="logo sp-logo" src="img/rusnet-logo-white.png" alt="RusnetVPN" style="position:absolute;height:60px;width:auto"></div>`;
 const FI={
 shield:'<path d="M12 2l8 3v7c0 4.6-3.4 8.6-8 10-4.6-1.4-8-5.4-8-10V5z" fill="currentColor"/><path d="M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
 lock:'<path d="M8 10V7.5a4 4 0 0 1 8 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><rect x="4.5" y="10" width="15" height="11" rx="3" fill="currentColor"/><circle cx="12" cy="15.5" r="1.8" fill="#fff"/>',
@@ -478,31 +507,27 @@ ${fld('Confirm Password','np-pw2',{type:'password',ph:'Password'})}
 
 /* 06-08 Home (Free / Guest / Premium) */
 SC.home=()=>{
-const v=S.vpn,prem=S.user==='premium',guest=S.user==='guest';
-const heroCls=v==='on'?'hero on':v==='fail'?'hero fail':v==='connecting'?'hero cn':'hero';
-const btn=v==='off'?`<button class="btn btn-p" data-act="connect" data-tour="connect">Connect</button>`:v==='connecting'?`<button class="btn btn-o" data-act="cancelConn">${ic('alert')}Cancel</button>`:v==='on'?`<button class="btn btn-o" data-act="disconnect" style="${isFree()?'background:var(--tint)':''}">${ic('alert')}Disconnect</button>`:`<button class="btn btn-p" data-act="connect">Retry</button>`;
+const v=S.vpn,prem=S.user==='premium',guest=S.user==='guest',trial=prem&&S.trialEnded;
 const STEPS=['Finding fastest server…','Securing connection…','Encrypting traffic…'];
 const el=S.connAt?Date.now()-S.connAt:0;
-const stat=v==='off'?`Current internet status ${ic('down','s')}`:v==='connecting'?`<span class="cstat"><span style="color:#7A4A00;font-weight:600">Connecting<span class="dots" aria-hidden="true"><i>.</i><i>.</i><i>.</i></span></span><small id="cstep">${STEPS[Math.min(2,Math.floor(el/600))]}</small></span>`:v==='on'?`<span id="timer">Connected · ${fmt(Date.now()-S.since)}</span> ${ic('down','s')}`:`<span style="color:var(--err)">Connection failed</span>`;
+const head=v==='off'?'Not connected':v==='on'?'Connected':v==='connecting'?'Connecting…':'Connection failed';
+const sub=v==='off'?'Tap the button to secure your traffic':v==='connecting'?`<span id="cstep">${STEPS[Math.min(2,Math.floor(el/600))]}</span>`:v==='on'?`<span id="timer">${fmt(Date.now()-S.since)}</span>`:'Check your network and try again';
+const go=v==='off'?['connect','Connect']:v==='connecting'?['cancelConn','Cancel']:v==='on'?['disconnect','Disconnect']:['connect','Retry'];
 const shown=S.loc||(v!=='off'||prem?{c:'au',n:'Australia',city:'Melbourne',fast:!prem}:null);
-const loc=shown?`${shown.fast&&v!=='on'?`<span class="fastp">${ic('bolt','s','color:#F59E0B;width:16px;height:16px')}Fastest</span>`:''}<span class="flag f-${shown.c}"></span><div class="nm" style="font-size:19px;letter-spacing:.02em">${shown.n}<br>${shown.city}</div>`
- :`<span class="ib" style="width:44px;height:44px">${ic('bolt')}</span><div class="nm"><b style="font-weight:500;font-size:18px">Free Server</b><span style="font-size:14px;color:var(--ink2);letter-spacing:.03em">Auto-selected · Fastest available</span></div>`;
+const loc=shown?`<span class="flag f-${shown.c}"></span><span class="nm"><b>${shown.n}</b><small>${shown.city}</small></span>${shown.fast&&v!=='on'?`<span class="vx-fast">Fastest</span>`:''}`
+ :`<span class="vx-bolt">${ic('bolt')}</span><span class="nm"><b>Free Server</b><small>Auto-selected, fastest available</small></span>`;
 const qcList=quick();
-const qc=qcList.length?`<div class="qc">${qcList.map((q,i)=>`<button class="qcc" data-act="qc" data-arg="${i}" aria-label="Connect to ${q.n}${q.b==='heart'?' (favorite)':' (recent)'}">${flag(q.c)}${q.b?`<span class="qb">${ic(q.b,'',`color:${q.b==='heart'?'#E0245E':'var(--mute)'};${q.b==='heart'?'fill:#E0245E':''}`)}</span>`:''}${q.n.length>13?q.n.slice(0,12)+'…':q.n}</button>`).join('')}</div>`:`<div class="empty">Your Quick Connect servers will appear here</div>`;
-const header=guest?`<div class="guest">${ic('info','s')}<a data-act="guestTip" data-tour="guest" style="color:var(--ink2);font-weight:500">Browsing as Guest</a> · <a data-act="toSignup" class="u">Sign Up</a></div>`:'';
-return `${header}
-<div class="${heroCls} ${guest?'g':''}">
-${setup()?(()=>{const s=setup(),d=setupDone(s);return `<button class="setupbtn" data-act="ov" data-arg="setup" aria-label="Getting started checklist, ${d} of ${SETUP.length} done">${ring(d,SETUP.length)}<span>${d}/${SETUP.length}</span></button>`})():''}
-${v==='on'&&isFree()?`<div class="datap"><span class="dot"></span><span id="dleft">${Math.max(0,Math.round(S.data))} MB left today</span><a data-act="upgrade">Upgrade</a></div>`:''}
-<div class="vis"><div class="ring r1"></div><div class="ring r2"></div><div class="pwwrap ${v}">${v==='connecting'?`<span class="sweep" aria-hidden="true"></span>`:''}${v==='connecting'||v==='on'?'<span class="wave"></span><span class="wave"></span><span class="wave"></span>':''}${v==='connecting'?`<span class="orbit o1" aria-hidden="true"><i></i></span><span class="orbit o2" aria-hidden="true"><i></i></span><span class="orbit o3" aria-hidden="true"><i></i></span><svg class="prog" viewBox="0 0 220 220" aria-hidden="true"><defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7FA2FF"/><stop offset="1" stop-color="#2563EB"/></linearGradient></defs><circle class="prog-bg" cx="110" cy="110" r="100"/><circle class="prog-fg" cx="110" cy="110" r="100" style="animation-delay:-${el}ms"/></svg>`:''}${v==='on'?'<span class="burst" aria-hidden="true"></span>':''}<button class="pw" data-act="power" aria-label="${v==='on'?'Disconnect':v==='connecting'?'Cancel connecting':'Connect'}">${ic('power')}</button></div>
-<div class="stat" role="status" aria-live="polite">${stat}</div></div>
-<div class="card">${btn}
-<div class="loc" data-tour="loc" data-act="tab" data-arg="servers" role="button" tabindex="0" aria-label="Choose server location" style="cursor:pointer;border-radius:16px">${loc}${prem?`<span class="pill gold">${ic('crown','s','width:12px;height:12px')}PREMIUM</span>`:''}<button data-act="tab" data-arg="servers" aria-label="Change server" style="border:0;background:none;color:var(--faint);padding:4px;display:flex;margin-left:auto">${ic('refresh')}</button></div>
-${qcList.length?'':'<div class="hist">CONNECTION HISTORY</div>'}<div data-tour="qc" class="col" style="gap:12px;border-radius:16px"><b style="font-size:15px">Quick Connect</b>${qc}</div></div></div>
+const qc=qcList.length?`<div class="qc">${qcList.map((q,i)=>`<button class="qcc" data-act="qc" data-arg="${i}" aria-label="Connect to ${q.n}${q.b==='heart'?' (favorite)':' (recent)'}">${flag(q.c)}${q.b?`<span class="qb">${ic(q.b,'',`color:${q.b==='heart'?'#E0245E':'var(--faint)'};${q.b==='heart'?'fill:#E0245E':''}`)}</span>`:''}${q.n.length>11?q.n.slice(0,10)+'…':q.n}</button>`).join('')}</div>`:`<div class="empty">Your Quick Connect servers will appear here</div>`;
+return `<div class="vx ${v} ${trial?'trial':''}">
+<div class="vx-top"><p class="logo"><img class="logo-img" src="img/rusnet-logo-light.png" alt="RusnetVPN"></p>${guest?`<span class="vx-guest"><a data-act="guestTip" data-tour="guest">Browsing as Guest</a> · <a data-act="toSignup" class="u">Sign Up</a></span>`:''}${setup()?(()=>{const s=setup(),d=setupDone(s);return `<button class="setupbtn" data-act="ov" data-arg="setup" aria-label="Getting started checklist, ${d} of ${SETUP.length} done">${ring(d,SETUP.length)}<span>${d}/${SETUP.length}</span></button>`})():''}</div>
+<div class="vx-art"><div class="vx-orb"><span class="vx-ring r1" aria-hidden="true"><i></i></span><span class="vx-ring r2" aria-hidden="true"><i></i></span><button class="vx-go" data-act="${go[0]}" ${v==='off'?'data-tour="connect"':''}>${ic('power')}${go[1]}</button></div>
+<div class="vx-state" role="status" aria-live="polite"><b>${head}</b><small>${sub}</small></div></div>
+<div class="vx-panel">
+${v==='on'&&isFree()?`<div class="vx-data"><span id="dleft">${Math.max(0,Math.round(S.data))} MB left today</span><a data-act="upgrade">Upgrade</a></div>`:''}
+<button class="vx-loc" data-tour="loc" data-act="tab" data-arg="servers" aria-label="Choose server location">${loc}${prem?`<span class="pill gold">${ic('crown','s','width:12px;height:12px')}PREMIUM</span>`:''}${ic('right','s')}</button>
+<div class="vx-qc" data-tour="qc"><b>Quick Connect</b>${qc}</div>
+</div></div>
 ${prem&&S.trialEnded?`<div class="row" style="position:absolute;left:14px;right:14px;top:max(16px,env(safe-area-inset-top));z-index:4;gap:10px;background:#141A2E;color:#fff;border-radius:16px;padding:12px 12px 12px 16px"><div class="col" style="flex:1;gap:2px"><b style="font-size:14px">Trial ended — payment in 24h</b><span style="font-size:13px;color:#A9B6D9">You'll be charged unless you cancel</span></div><a data-act="trialCancel" style="background:#3A4256;color:#fff;border-radius:10px;padding:9px 12px;font-size:14px;font-weight:600">Cancel</a><a data-act="trialPay" style="background:var(--grad);color:#fff;border-radius:10px;padding:9px 12px;font-size:14px;font-weight:600">Pay Now</a></div>`:''}
-
-
-
 ${tabs('home')}`};
 SC.offline=()=>`${safeTop()}<div class="col pad" style="align-items:center;gap:16px;margin-top:180px">${ic('wifioff','','width:110px;height:110px;color:#B5B5B5;stroke-width:1')}<h1 class="h2 c" style="font-size:26px;margin-top:20px">No Internet Connection</h1><p class="p c" style="font-size:17px">Please check your network connection and try again.</p><button class="btn btn-p" style="margin-top:18px" data-act="retryNet">Retry</button></div>${tabs('home')}`;
 
@@ -550,12 +575,12 @@ SC.processing=()=>`${safeTop()}${arrowTitle('Checkout')}<div class="col pad" sty
 SC.payfail=()=>`${safeTop()}${arrowTitle('Checkout')}<div class="col pad" style="align-items:center;gap:14px;margin-top:150px"><div class="ib lg" style="width:120px;height:120px;background:#B91C1C;box-shadow:none">${ic('x','xl','stroke-width:2.2')}</div><h2 class="h2 c" style="font-size:26px;margin-top:14px">Payment Failed</h2><p class="p c">Your payment could not be processed. Please check your card details and try again.</p></div>
 <div class="col pad" style="position:absolute;left:0;right:0;bottom:34px;gap:22px;align-items:center"><button class="btn btn-p" data-act="back">Try Again</button><p class="small c" style="margin:0">Need help? <a class="lnk" data-act="go" data-arg="support">Contact Support</a></p></div>`;
 SC.welcome=()=>{const p=planOf(S.plan)||PLANS[5];return `<div style="position:absolute;left:0;right:0;top:0;height:470px;background:var(--grad)"></div>${safeTop()}
-<div class="col" style="align-items:center;gap:16px;position:relative;color:#fff;margin-top:40px"><p style="margin:0;font-size:20px;font-weight:600">VesperVPN</p>
+<div class="col" style="align-items:center;gap:16px;position:relative;color:#fff;margin-top:40px"><p style="margin:0;font-size:20px;font-weight:600">RusnetVPN</p>
 <div style="width:110px;height:110px;border-radius:28px;background:#fff;display:flex;align-items:center;justify-content:center;color:var(--blue);margin-top:10px">${ic('shield','xl')}</div>
 <h1 class="h1 c" style="margin-top:6px">Welcome to Premium</h1><span class="row" style="gap:8px;font-size:17px">${ic('crown','s')}${p.nm} · All Features Unlocked</span></div>
 <div class="col" style="position:absolute;left:0;right:0;top:420px;bottom:0;background:#fff;border-radius:40px 40px 0 0;padding:34px 24px 30px;gap:20px"><p class="sec">Unlocked benefits</p>
 <div class="ben" style="gap:24px">${['Unlimited data – no daily cap','All 50+ countries – no restrictions','5 simultaneous devices','Full streaming (Netflix, Spotify, etc.)','Cancel anytime'].map(t=>`<div style="font-size:15px"><span class="ck" style="background:var(--grad);color:#fff">${ic('check')}</span>${t}</div>`).join('')}</div>
-<button class="btn btn-p" style="margin-top:auto" data-act="startPremium">Start Using VesperVPN</button></div>`};
+<button class="btn btn-p" style="margin-top:auto" data-act="startPremium">Start Using RusnetVPN</button></div>`};
 SC.receipt=()=>{const p=planOf(S.plan)||PLANS[2];return `${safeTop()}${arrowTitle('Receipt')}<div class="scr"><div class="col pad" style="align-items:center;gap:14px;margin-top:40px;padding-bottom:110px">
 <div class="ib" style="width:72px;height:72px">${ic('check','l')}</div><h2 class="h2 c" style="font-size:26px;margin-top:10px">Payment Successful</h2>
 <div style="width:100%;border:1px solid var(--line);border-radius:22px;padding:18px 24px;margin-top:20px;box-shadow:0 12px 24px -18px rgba(15,23,42,.35)">
@@ -571,7 +596,7 @@ SC.menu=()=>{const u=S.user||'guest',p=planOf(S.plan)||PLANS[5],locked=u!=='prem
 const notifOn=Object.values(S.notif).filter(Boolean).length;
 const head=u==='guest'?`<div class="mhead"><div class="row" style="gap:14px"><span class="mtile" style="width:52px;height:52px;border-radius:16px">${ic('user','l')}</span><div class="col" style="gap:4px;flex:1"><b style="font-size:19px">Sign in to your account</b><span class="small">Access all premium servers, faster speed and more protocols.</span></div></div><div class="row" style="gap:12px;margin-top:16px"><button class="btn btn-p btn-sm" data-act="toSignin">Sign In</button><button class="btn btn-o btn-sm" data-act="toSignup">Sign Up</button></div></div>`
 :u==='free'?`<div class="mhead"><a class="row" style="gap:14px;color:inherit" data-act="go" data-arg="account" aria-label="Open account"><span class="ib" style="width:56px;height:56px;font-size:24px;font-weight:600;box-shadow:none">${S.name[0]}</span><div class="col" style="gap:6px;flex:1;min-width:0"><b style="font-size:17px;overflow:hidden;text-overflow:ellipsis">${S.email}</b><span class="pill b" style="align-self:flex-start;height:24px">FREE PLAN – 1 GB/DAY</span></div>${ic('right','s','color:var(--faint)')}</a><button class="btn btn-p" style="margin-top:16px" data-act="go" data-arg="plans">${ic('crown','s')}Upgrade to Premium</button></div>`
-:`<div class="mhead prem"><a class="row" style="gap:14px;color:#fff" data-act="go" data-arg="account" aria-label="Open account"><span style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#FBBF24,#D97706);display:flex;align-items:center;justify-content:center;color:#fff;flex:none">${ic('crown')}</span><div class="col" style="gap:4px;flex:1;min-width:0"><b style="font-size:17px;overflow:hidden;text-overflow:ellipsis">${S.email}</b><span style="font-size:14px;color:#C9D6FF">${p.nm} Subscription</span></div>${ic('right','s','color:#C9D6FF')}</a><div class="row" style="justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.18)"><span style="font-size:14px;color:#C9D6FF">Expires on: <b style="color:#fff">12 March 2026</b></span><a data-act="go" data-arg="plans" style="background:#fff;color:var(--blue-d);border-radius:999px;padding:10px 18px;font-size:14px;font-weight:700">Expand Plan</a></div></div>`;
+:`<div class="mhead prem"><a class="row" style="gap:14px;color:#fff" data-act="go" data-arg="account" aria-label="Open account"><span style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#FBBF24,#D97706);display:flex;align-items:center;justify-content:center;color:#fff;flex:none">${ic('crown')}</span><div class="col" style="gap:4px;flex:1;min-width:0"><b style="font-size:17px;overflow:hidden;text-overflow:ellipsis">${S.email}</b><span style="font-size:14px;color:#FFC9C9">${p.nm} Subscription</span></div>${ic('right','s','color:#FFC9C9')}</a><div class="row" style="justify-content:space-between;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.18)"><span style="font-size:14px;color:#FFC9C9">Expires on: <b style="color:#fff">12 March 2026</b></span><a data-act="go" data-arg="plans" style="background:#fff;color:var(--blue-d);border-radius:999px;padding:10px 18px;font-size:14px;font-weight:700">Expand Plan</a></div></div>`;
 return `${safeTop()}<div class="scr" style="background:#F5F7FB"><div class="col pad" style="padding-top:26px;padding-bottom:120px"><h1 class="h1" style="font-size:34px;margin-bottom:20px">Menu</h1>${head}
 <p class="mlabel">VPN Settings</p><div class="mcard">
 ${mrow('shield','','Protocols',S.proto==='oc'?'Openconnect':'WireGuard',locked?'locked':'go','protocol',{lock:locked})}
@@ -606,8 +631,8 @@ SC.deleted=()=>`${safeTop()}<div class="col pad" style="align-items:center;gap:1
 /* 14 My Subscription */
 const benList=items=>`<div class="ben" style="gap:40px;padding-left:12px">${items.map(t=>`<div style="font-size:17px;gap:28px"><span class="ck" style="width:26px;height:26px">${ic('check')}</span>${t}</div>`).join('')}</div>`;
 SC.subscription=()=>{const prem=S.user==='premium',p=planOf(S.plan)||PLANS[5];
-const card=prem?`<div class="premcard" style="padding:28px 24px 22px"><div class="row" style="justify-content:space-between"><span class="row" style="gap:14px;font-size:30px;font-weight:700">${ic('crown')}${p.nm} Plan</span><span class="pill" style="${S.cancelled?'background:#6B7280;color:#fff':'background:var(--grad);color:#fff'}">${S.cancelled?'CANCELLED':'ACTIVE'}</span></div><span style="font-size:15px;color:#E3E9FB;padding-bottom:16px">Expires on: 12 March 2026</span><div class="stats"><div><b>50+</b><span>Countries</span></div><div><b>5</b><span>Devices</span></div><div><b>∞</b><span>Data</span></div></div></div>`
-:`<div class="premcard" style="padding:28px 24px 22px"><div class="row" style="justify-content:space-between"><span class="row" style="gap:14px;font-size:30px;font-weight:700">${ic('crown','','color:#9CA3AF')}Free Plan</span><span class="pill" style="background:var(--grad);color:#fff">ACTIVE</span></div><span style="font-size:15px;color:#E3E9FB;padding-bottom:16px">No expiration date</span><div class="stats"><div><b>5</b><span>Countries</span></div><div><b>1</b><span>Device</span></div><div><b>Limited</b><span>Data</span></div></div></div>`;
+const card=prem?`<div class="premcard" style="padding:28px 24px 22px"><div class="row" style="justify-content:space-between"><span class="row" style="gap:14px;font-size:30px;font-weight:700">${ic('crown')}${p.nm} Plan</span><span class="pill" style="${S.cancelled?'background:#6B7280;color:#fff':'background:var(--grad);color:#fff'}">${S.cancelled?'CANCELLED':'ACTIVE'}</span></div><span style="font-size:15px;color:#FDE4E4;padding-bottom:16px">Expires on: 12 March 2026</span><div class="stats"><div><b>50+</b><span>Countries</span></div><div><b>5</b><span>Devices</span></div><div><b>∞</b><span>Data</span></div></div></div>`
+:`<div class="premcard" style="padding:28px 24px 22px"><div class="row" style="justify-content:space-between"><span class="row" style="gap:14px;font-size:30px;font-weight:700">${ic('crown','','color:#9CA3AF')}Free Plan</span><span class="pill" style="background:var(--grad);color:#fff">ACTIVE</span></div><span style="font-size:15px;color:#FDE4E4;padding-bottom:16px">No expiration date</span><div class="stats"><div><b>5</b><span>Countries</span></div><div><b>1</b><span>Device</span></div><div><b>Limited</b><span>Data</span></div></div></div>`;
 const tx=prem?`<p class="sec" style="margin-top:10px">Transaction history</p><div class="col">${[['$0.00','12 Mar 2025','receipt',1],[S.cancelled?'$35.99':'$39.99','12 Mar 2024','card'],[S.cancelled?'$35.99':'$39.99','12 Mar 2023','card']].map(([a,d,i,fr],k)=>`<a data-act="go" data-arg="receipt" class="row" style="gap:18px;padding:16px 20px;border-bottom:${k<2?'1px solid var(--line)':'0'};color:var(--ink)"><span class="tile t" style="border-radius:50%;width:52px;height:52px">${ic(i)}</span><div class="col" style="flex:1;gap:4px"><b style="font-size:17px;font-weight:600">1 Year Plan</b><span class="small" style="font-size:16px">${d}</span></div><div class="col" style="align-items:flex-end;gap:6px"><b>${a}</b>${fr?'<span class="pill ok" style="height:26px">FREE</span>':''}</div></a>`).join('')}</div>`:'';
 return `${safeTop()}${backTitle('My Subscription')}<div class="scr"><div class="col pad" style="gap:28px;margin-top:10px;padding-bottom:110px">${card}
 ${S.cancelled?`<div class="row" style="gap:20px;background:var(--grad);color:#fff;border-radius:22px;padding:22px 28px;font-size:14px;line-height:1.6">${ic('warn')}Your subscription has been cancelled. You still have access until 12 March 2026.</div>`:''}
@@ -627,7 +652,7 @@ SC.cancelSure=()=>`${safeTop()}${backTitle('Cancel Subscription')}<div class="sc
 <button class="btn btn-p" style="margin-top:40px" data-act="keepSub">Keep My Subscription</button><button class="btn btn-o" data-act="doCancel">Yes, Cancel Subscription</button></div></div>${tabs('menu')}`;
 
 /* 15 VPN Settings */
-const INFO={kill:['Kill Switch','Automatically blocks all internet traffic if the VPN connection drops, preventing data leaks. Recommended to keep enabled for maximum security.'],split:['Split Tunneling','Choose which apps use the VPN and which connect directly. Useful for banking apps or local services that block VPN traffic.'],dns:['DNS Settings','Controls how your device resolves domain names. VesperVPN uses private DNS by default to prevent DNS leaks. Change only if you need a custom resolver.']};
+const INFO={kill:['Kill Switch','Automatically blocks all internet traffic if the VPN connection drops, preventing data leaks. Recommended to keep enabled for maximum security.'],split:['Split Tunneling','Choose which apps use the VPN and which connect directly. Useful for banking apps or local services that block VPN traffic.'],dns:['DNS Settings','Controls how your device resolves domain names. RusnetVPN uses private DNS by default to prevent DNS leaks. Change only if you need a custom resolver.']};
 SC.settings=()=>`${safeTop()}${arrowTitle('VPN Settings')}<div class="scr"><div class="col" style="gap:24px;margin-top:20px;padding:0 16px 110px"><div class="list" style="border-radius:28px">
 <div class="li" data-act="info" data-arg="kill" style="padding:20px 18px 20px 20px"><span class="tile">${ic('shield')}</span><span class="tx"><span class="tt" style="font-size:19px;font-weight:500">Kill Switch</span><span class="st" style="font-size:15px">Cut internet if VPN drops</span></span>${toggle(S.set.kill,'set','kill','Kill Switch')}</div>
 <a class="li" data-act="go" data-arg="split" style="padding:20px 18px 20px 20px"><span class="tile">${ic('xc')}</span><span class="tx"><span class="tt" style="font-size:19px;font-weight:500">Split Tunneling</span><span class="st" style="font-size:15px">Choose apps that bypass VPN</span></span>${ic('right','chev')}</a>
@@ -638,7 +663,7 @@ const APPS=[['Chrome','#4285F4'],['Instagram','#E1306C'],['YouTube','#FF0000'],[
 SC.split=()=>`${safeTop()}${arrowTitle('Split Tunneling')}<div class="scr"><div class="col" style="gap:22px;margin-top:22px;padding:0 20px 110px"><p class="p" style="font-size:17px">Apps below will bypass the VPN tunnel</p>
 <div class="inp" style="background:var(--soft);border-color:transparent;height:52px;border-radius:16px">${ic('search')}<input id="appq" placeholder="Search apps..."></div>
 <div class="list" id="apps" style="border-radius:28px">${APPS.map(([n,c])=>`<div class="li" data-app="${n}" style="padding:16px 18px 16px 16px"><span style="width:40px;height:40px;border-radius:50%;background:${c};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px">${n[0]}</span><span class="tx"><span class="tt" style="font-size:19px;font-weight:500">${n}</span></span>${toggle(S.split[n],'split',n)}</div>`).join('')}</div></div></div>${tabs('menu')}`;
-const NOTIF=[['VPN alerts',[['vpnd','VPN Disconnected','Notify when your secure connection drops','shieldoff'],['cfail','Connection Failed','Alerts for server connection issues','alert'],['auto','Auto-connect Triggered','Notify when VPN starts automatically','bolt']]],['Subscription',[['trial','Trial Expiring Soon','Reminders for trial end dates','cal'],['pay','Payment Reminder','Notification for upcoming renewals','card'],['offer','New Offer Available','Exclusive discounts and promotions','tag']]],['General',[['upd','App Updates','Get notified about new features','refresh'],['tips','Tips &amp; Tricks','How to get the most out of VesperVPN','info']]]];
+const NOTIF=[['VPN alerts',[['vpnd','VPN Disconnected','Notify when your secure connection drops','shieldoff'],['cfail','Connection Failed','Alerts for server connection issues','alert'],['auto','Auto-connect Triggered','Notify when VPN starts automatically','bolt']]],['Subscription',[['trial','Trial Expiring Soon','Reminders for trial end dates','cal'],['pay','Payment Reminder','Notification for upcoming renewals','card'],['offer','New Offer Available','Exclusive discounts and promotions','tag']]],['General',[['upd','App Updates','Get notified about new features','refresh'],['tips','Tips &amp; Tricks','How to get the most out of RusnetVPN','info']]]];
 SC.notifications=()=>`${safeTop()}${arrowTitle('Notifications')}<div class="scr"><div class="col" style="padding:0 16px 110px">${NOTIF.map(([h,items])=>`<p class="sec" style="margin:34px 0 10px 18px">${h}</p>${items.map(([k,t,s,i])=>`<div class="row" style="gap:16px;padding:18px 16px;border-bottom:1px solid var(--line)"><span class="tile b" style="width:40px;height:40px;border-radius:12px;box-shadow:none">${ic(i)}</span><div class="col" style="flex:1;gap:4px"><b style="font-size:18px;font-weight:500">${t}</b><span class="small" style="font-size:14px">${s}</span></div>${toggle(S.notif[k],'notif',k,t.replace('&amp;','&'))}</div>`).join('')}`).join('')}</div></div>${tabs('menu')}`;
 const PROTO={oc:['Openconnect','Faster, suitable for streaming and daily browsing. Recommended for general users.'],wg:['WireGuard','WireGuard is fastest for most users.']};
 SC.protocol=()=>`${safeTop()}${backTitle('Security Protocol')}<div class="scr"><div class="col pad" style="gap:22px;margin-top:6px;padding-bottom:110px">
@@ -651,13 +676,13 @@ ${S.protoHelp?`<div class="col" style="gap:14px;border:1px solid var(--line);bor
 SC.about=()=>`${safeTop()}${backTitle('About us')}<div class="scr"><div class="col pad" style="gap:22px;margin-top:10px;padding-bottom:110px">
 <div style="position:relative;height:180px;border-radius:36px;overflow:hidden;background:radial-gradient(120% 140% at 120% -20%,#A7C7F2 0%,#BFD3F2 30%,transparent 31%),radial-gradient(160% 180% at 110% -10%,#C9DAF6 0%,#D3E0F7 45%,transparent 46%),linear-gradient(90deg,#E2E7FB,#D9E3F8);display:flex;align-items:center;padding:0 22px">${logo('font-size:46px;text-align:left;position:relative')}</div>
 <h1 class="h1" style="margin-top:10px">The VPN You Deserve</h1><p style="margin:0;font-size:17px" data-act="go" data-arg="update">Current app version: 1.2.0</p>
-<p style="margin:0;font-size:17px;line-height:1.75">Vesper VPN collects personal information that you provide to us directly through the Site. We require that you provide personal information, such as an email address and payment information.</p></div></div>${tabs('menu')}`;
+<p style="margin:0;font-size:17px;line-height:1.75">Rusnet VPN collects personal information that you provide to us directly through the Site. We require that you provide personal information, such as an email address and payment information.</p></div></div>${tabs('menu')}`;
 const FAQ=[['What is a VPN and why do I need one?','A VPN encrypts your internet connection so your data is more secure from hackers. It\'s ideal for protecting your privacy when using public Wi-Fi.'],['What is a Security Protocol?','The protocol governs how your connection is secured. Leave it at default if unsure.'],['Why is my connection slow?','Pick a server close to you, or switch protocol in Menu › Protocols. WireGuard is usually the fastest.'],['How do I cancel my subscription?','Go to Menu › My Subscription › Cancel Subscription. You keep access until the end of your billing period.']];
 const acc=(title,body,open,cls='')=>`<details class="acc2 ${cls}" ${open?'open':''}><summary><span>${title}</span>${ic('down','s')}</summary><div class="acc2-b">${body}</div></details>`;
 SC.support=()=>`${safeTop()}${backTitle('Support center')}<div class="scr" style="background:#F5F7FB"><div class="col pad" style="gap:10px;padding-bottom:120px">
 <h2 class="h2" style="font-size:26px;margin-top:8px">Get Support</h2><p class="p" style="font-size:16px;color:var(--ink2)">Connecting with us is easy. Our dedicated team is ready to assist you promptly and efficiently.</p>
 <p class="mlabel">Contact us</p><div class="mcard">
-${mrow('mail','','Email Support','support@vespervpn.com','go','emailSupport')}
+${mrow('mail','','Email Support','support@rusnetvpn.com','go','emailSupport')}
 ${mrow('chat','green','Live Chat','<span class="online"></span>Available 24/7','go','chat')}
 ${mrow('phone','violet','Sales','Contact our team','go','sales')}</div>
 <p class="mlabel">Frequently asked questions</p><div class="mcard accs">${FAQ.map(([q,a],i)=>acc(q,a,i===0)).join('')}</div></div></div>${tabs('menu')}`;
@@ -665,15 +690,15 @@ ${mrow('phone','violet','Sales','Contact our team','go','sales')}</div>
 const TOPICS=['Connection','Billing','Account','Other'];
 SC.emailSupport=()=>S.sentEmail?`${safeTop()}${arrowTitle('Email Support')}<div class="col pad" style="align-items:center;gap:14px;margin-top:120px"><div class="ib xl ok" style="width:88px;height:88px">${ic('check','l','stroke-width:2.4')}</div><h2 class="h2 c" style="margin-top:14px">Message sent</h2><p class="p c">We'll reply to <b style="color:var(--ink)">${S.sentEmail}</b> within 24 hours.<br>Ticket ID: #VSP-T-${String(S.ticket).padStart(5,'0')}</p><button class="btn btn-p" style="margin-top:20px" data-act="supportDone">Back to Support center</button></div>`
 :`${safeTop()}${arrowTitle('Email Support')}<div class="scr"><div class="col pad" style="gap:18px;margin-top:10px;padding-bottom:40px">
-<div class="note">${ic('clock')}<div><b>We usually reply within 24 hours</b>Messages go to support@vespervpn.com.</div></div>
+<div class="note">${ic('clock')}<div><b>We usually reply within 24 hours</b>Messages go to support@rusnetvpn.com.</div></div>
 ${fld('Your email','es-email',{ph:'email@example.com',val:S.email||''})}
 <div class="field"><span class="lbl">Topic</span><div class="chips" role="radiogroup" aria-label="Topic">${TOPICS.map(x=>`<button class="chip chipb ${S.topic===x?'on':''}" role="radio" aria-checked="${S.topic===x}" data-act="topic" data-arg="${x}">${x}</button>`).join('')}</div><p class="errt" id="e-topic"></p></div>
 <div class="field"><label class="lbl" for="es-msg">Message</label><div class="inp" id="w-es-msg" style="height:150px;align-items:flex-start;padding-top:14px"><textarea id="es-msg" placeholder="Describe your issue…" style="height:120px;resize:none"></textarea></div><p class="errt" id="e-es-msg"></p></div>
 <button class="btn btn-p" data-act="sendEmail">${ic('send','s')}Send Message</button>
-<p class="small c" style="margin:0">Or write to us directly at <a class="lnk" href="mailto:support@vespervpn.com">support@vespervpn.com</a></p></div></div>`;
+<p class="small c" style="margin:0">Or write to us directly at <a class="lnk" href="mailto:support@rusnetvpn.com">support@rusnetvpn.com</a></p></div></div>`;
 
 const CHAT_QUICK=["I can't connect","Billing question","Change my plan","Something else"];
-SC.chat=()=>`${safeTop()}<div class="row" style="gap:12px;padding:10px 16px 12px;border-bottom:1px solid var(--line)"><a data-act="back" aria-label="Back" style="color:var(--ink);width:44px;height:44px;display:flex;align-items:center">${ic('arrow')}</a><span class="ib" style="width:42px;height:42px;font-weight:700;box-shadow:none">M</span><div class="col" style="gap:2px;flex:1"><b style="font-size:16px">Maya · VesperVPN Support</b><span class="small row" style="gap:6px"><span class="online"></span>Online · replies in about 1 min</span></div></div>
+SC.chat=()=>`${safeTop()}<div class="row" style="gap:12px;padding:10px 16px 12px;border-bottom:1px solid var(--line)"><a data-act="back" aria-label="Back" style="color:var(--ink);width:44px;height:44px;display:flex;align-items:center">${ic('arrow')}</a><span class="ib" style="width:42px;height:42px;font-weight:700;box-shadow:none">M</span><div class="col" style="gap:2px;flex:1"><b style="font-size:16px">Maya · RusnetVPN Support</b><span class="small row" style="gap:6px"><span class="online"></span>Online · replies in about 1 min</span></div></div>
 <div class="scr" id="chatScroll" style="background:#F5F7FB"><div class="col" style="gap:10px;padding:18px 16px 20px" role="log" aria-live="polite">
 <p class="small c" style="margin:0 0 6px">Today</p>
 ${S.chat.map(m=>`<div class="bubble ${m.me?'me':''}">${m.t}</div>`).join('')}
@@ -685,42 +710,42 @@ ${S.chat.length<=1&&!S.chatTyping?`<div class="chips" style="margin-top:6px">${C
 const SIZES=['1–10','11–50','51–200','200+'];
 SC.sales=()=>S.salesSent?`${safeTop()}${arrowTitle('Contact Sales')}<div class="col pad" style="align-items:center;gap:14px;margin-top:120px"><div class="ib xl ok" style="width:88px;height:88px">${ic('check','l','stroke-width:2.4')}</div><h2 class="h2 c" style="margin-top:14px">Thanks, ${S.salesSent.name.split(' ')[0]}!</h2><p class="p c">Our sales team will contact you at <b style="color:var(--ink)">${S.salesSent.email}</b> within 1 business day.</p><button class="btn btn-p" style="margin-top:20px" data-act="supportDone">Back to Support center</button></div>`
 :`${safeTop()}${arrowTitle('Contact Sales')}<div class="scr"><div class="col pad" style="gap:18px;margin-top:10px;padding-bottom:40px">
-<div class="row" style="gap:14px;background:var(--tint);border-radius:20px;padding:16px"><span class="mtile violet">${ic('briefcase')}</span><p class="p" style="color:var(--ink2);font-size:15px">VesperVPN for your team: volume pricing, central billing and a dedicated account manager.</p></div>
+<div class="row" style="gap:14px;background:var(--tint);border-radius:20px;padding:16px"><span class="mtile violet">${ic('briefcase')}</span><p class="p" style="color:var(--ink2);font-size:15px">RusnetVPN for your team: volume pricing, central billing and a dedicated account manager.</p></div>
 ${fld('Full Name','sl-name',{ph:'Your name',val:S.user&&S.user!=='guest'?S.name:''})}
 ${fld('Work Email','sl-email',{ph:'name@company.com',val:S.email||''})}
 ${fld('Company','sl-co',{ph:'Company name'})}
 <div class="field"><span class="lbl">Team size</span><div class="chips" role="radiogroup" aria-label="Team size">${SIZES.map(x=>`<button class="chip chipb ${S.teamSize===x?'on':''}" role="radio" aria-checked="${S.teamSize===x}" data-act="teamSize" data-arg="${x}">${x}</button>`).join('')}</div><p class="errt" id="e-size"></p></div>
 <button class="btn btn-p" data-act="sendSales">Contact Sales</button></div></div>`;
 
-const POL='VesperVPN collects personal information that you provide to us directly through the Site. We require that you provide personal information, such as an email address and payment information, to establish a VesperVPN account and so that we can email you, collect payments from you, and respond to support queries that you initiate.';
+const POL='RusnetVPN collects personal information that you provide to us directly through the Site. We require that you provide personal information, such as an email address and payment information, to establish a RusnetVPN account and so that we can email you, collect payments from you, and respond to support queries that you initiate.';
 SC.terms=()=>`${safeTop()}${backTitle('Terms &amp; Privacy Policy')}<div class="scr" style="background:#F5F7FB"><div class="col pad" style="gap:12px;padding-bottom:120px;font-size:15px;line-height:1.65;color:var(--ink2)"><span class="small">Last update: 12 June 2026</span>
-<div class="mcard" style="padding:18px">How come the tech world produces cutting-edge innovative digital experience, and yet we are still stuck in an ancient world of legalese?<br>What makes a document legally binding? An ancient language full of "heretofores" and "thereupons" surely does not guarantee that.<br>That's why with VesperVPN we took a step forward and made our Privacy Policy and Terms of Service documents clear and easy to understand. Because our users deserve it.</div>
+<div class="mcard" style="padding:18px">How come the tech world produces cutting-edge innovative digital experience, and yet we are still stuck in an ancient world of legalese?<br>What makes a document legally binding? An ancient language full of "heretofores" and "thereupons" surely does not guarantee that.<br>That's why with RusnetVPN we took a step forward and made our Privacy Policy and Terms of Service documents clear and easy to understand. Because our users deserve it.</div>
 <div class="row" style="justify-content:space-between;margin-top:8px"><p class="mlabel" style="margin:8px 4px">Policies</p><button class="lnk" style="border:0;background:none;font:inherit;font-size:14px;font-weight:600" data-act="toggleAll">Expand all</button></div>
 <div class="mcard accs" id="pol">
-${acc('Core Policy','VesperVPN collects personal information that you provide to us directly through the Site. We require that you provide personal information, such as an email address and payment information, to establish a VesperVPN account and so that we can email you, process payments, and respond to support queries that you initiate. The specific information collected varies depending on the payment method you choose. We collect only the minimum information necessary to complete your transaction and deliver our services.',1)}
+${acc('Core Policy','RusnetVPN collects personal information that you provide to us directly through the Site. We require that you provide personal information, such as an email address and payment information, to establish a RusnetVPN account and so that we can email you, process payments, and respond to support queries that you initiate. The specific information collected varies depending on the payment method you choose. We collect only the minimum information necessary to complete your transaction and deliver our services.',1)}
 ${acc('Privacy Policy',POL+'<br><br>'+POL,0)}
 ${acc('Refund Policy',POL,0)}</div></div></div>${S.user?tabs('menu'):''}`;
-SC.update=()=>`${safeTop()}<div class="col pad" style="align-items:center;gap:16px;margin-top:150px"><div style="width:96px;height:96px;border-radius:50%;background:var(--grad)"></div><h1 class="h1 c" style="margin-top:46px">Update Required</h1><p class="p c" style="font-size:17px;line-height:1.75">A new version of VesperVPN is available. Please update the app to continue using our services.</p><div class="row" style="gap:8px;background:var(--soft);border-radius:999px;padding:10px 18px;font-size:14px;color:var(--mute);margin-top:12px">Current version: <b style="color:var(--ink)">1.2.0</b>${ic('next','s','width:12px;height:12px')}New version: <b style="color:var(--blue)">1.4.0</b></div></div>
+SC.update=()=>`${safeTop()}<div class="col pad" style="align-items:center;gap:16px;margin-top:150px"><div style="width:96px;height:96px;border-radius:50%;background:var(--grad)"></div><h1 class="h1 c" style="margin-top:46px">Update Required</h1><p class="p c" style="font-size:17px;line-height:1.75">A new version of RusnetVPN is available. Please update the app to continue using our services.</p><div class="row" style="gap:8px;background:var(--soft);border-radius:999px;padding:10px 18px;font-size:14px;color:var(--mute);margin-top:12px">Current version: <b style="color:var(--ink)">1.2.0</b>${ic('next','s','width:12px;height:12px')}New version: <b style="color:var(--blue)">1.4.0</b></div></div>
 <div class="col pad" style="position:absolute;left:0;right:0;bottom:40px;gap:22px;align-items:center"><button class="btn btn-p" data-act="back">Update Now</button><a class="small u" style="color:var(--mute);font-size:17px;font-weight:600" data-act="back">Learn what's new</a></div>`;
 SC.suspended=()=>`${safeTop()}<div class="col pad" style="align-items:center;gap:16px;margin-top:220px"><div class="ib" style="width:100px;height:100px;box-shadow:none">${ic('shieldx','l')}</div><h1 class="h1 c" style="margin-top:24px;font-size:32px"><span class="gt">Account Suspended</span></h1><p class="p c" style="font-size:17px;line-height:1.75">Your account has been suspended due to a violation of our Terms of Service. Please contact support to resolve this issue.</p><button class="btn btn-p" style="margin-top:30px" data-act="go" data-arg="support">Contact Support</button></div><p class="small c" style="position:absolute;left:0;right:0;bottom:44px;margin:0">Account ID: #USR-00291</p>`;
 
 /* ================= overlays (bottom sheets & modals) ================= */
 const OV={};
 OV.guest=()=>sheet(`<div class="ib" style="margin-top:20px">${ic('user','l')}</div><h2 class="h2 c" style="font-size:26px;margin-top:6px">Continue as Guest?</h2><p class="p c" style="font-size:14px">Guest mode gives you limited access. Create a free account to unlock full features.</p><button class="btn btn-p" style="margin-top:10px" data-act="toSignup">Create Free Account</button><button class="btn btn-o" data-act="asGuest">${ic('alert')}Continue as Guest</button>`);
-OV.perm=()=>modal(`<div class="ib" style="width:60px;height:60px">${ic('shield','l')}</div><h2 class="h2 c" style="font-size:22px">Allow VPN Configuration</h2><p class="c" style="margin:0;font-size:14px;line-height:1.6">VesperVPN would like to add VPN configurations to your device. This allows the app to filter network traffic.</p><div style="width:100%;border-top:1px solid var(--line)"><div class="kv" style="border-bottom:1px solid var(--line);padding:14px 0"><span style="color:var(--ink)">Server</span><span>Free Auto-Select</span></div><div class="kv" style="border-bottom:1px solid var(--line);padding:14px 0"><span style="color:var(--ink)">Protocol</span><span>IKEv2</span></div><div class="kv" style="padding:14px 0"><span style="color:var(--ink)">Certificate</span><span>Verified ✓</span></div></div><div class="row" style="width:calc(100% + 48px);border-top:1px solid var(--line)"><a data-act="close" style="flex:1;text-align:center;padding:20px;font-size:18px;color:var(--ink);border-right:1px solid var(--line)">Don't Allow</a><a data-act="allow" style="flex:1;text-align:center;padding:20px;font-size:18px;color:var(--blue)">Allow</a></div>`,'padding-bottom:0;gap:12px');
-OV.created=()=>sheet(`<div class="row" style="width:100%;justify-content:center;position:relative;margin-top:16px"><div class="grab"></div><button data-act="close" aria-label="Close" style="position:absolute;right:0;top:-12px;width:40px;height:40px;border-radius:50%;background:var(--soft);border:0;display:flex;align-items:center;justify-content:center;color:var(--mute)">${ic('xc','s')}</button></div><div class="ib" style="width:64px;height:64px;margin-top:10px">${ic('sparkle','l')}</div><h2 class="h2 c" style="font-size:24px">Account Created!</h2><p class="p c" style="font-size:14px">Welcome to VesperVPN! Your account has been created successfully.</p><div class="col" style="width:100%;background:var(--soft);border-radius:20px;padding:18px 16px;gap:14px">${PLANS[0].f.map(t=>`<div class="row" style="gap:14px;font-size:14px">${ic('shield','s','color:var(--blue)')}${t}</div>`).join('')}</div><div class="row" style="width:100%;gap:12px;border:1px solid var(--line);background:#F3F6FB;border-radius:20px;padding:14px"><span class="ib" style="width:42px;height:42px;box-shadow:none">${ic('gift','s')}</span><div class="col" style="flex:1;gap:2px"><b style="font-size:16px;font-weight:600">7-Day Free Trial</b><span class="small">Coba semua fitur premium tanpa biaya.</span></div><a data-act="trialPlan" style="background:#fff;border-radius:12px;padding:10px 12px;font-size:14px;font-weight:600;color:var(--blue)">Mulai</a></div><button class="btn btn-p" data-act="explorePlans">Explore Plans</button>`,{nograb:1,st:'gap:14px'});
+OV.perm=()=>modal(`<div class="ib" style="width:60px;height:60px">${ic('shield','l')}</div><h2 class="h2 c" style="font-size:22px">Allow VPN Configuration</h2><p class="c" style="margin:0;font-size:14px;line-height:1.6">RusnetVPN would like to add VPN configurations to your device. This allows the app to filter network traffic.</p><div style="width:100%;border-top:1px solid var(--line)"><div class="kv" style="border-bottom:1px solid var(--line);padding:14px 0"><span style="color:var(--ink)">Server</span><span>Free Auto-Select</span></div><div class="kv" style="border-bottom:1px solid var(--line);padding:14px 0"><span style="color:var(--ink)">Protocol</span><span>IKEv2</span></div><div class="kv" style="padding:14px 0"><span style="color:var(--ink)">Certificate</span><span>Verified ✓</span></div></div><div class="row" style="width:calc(100% + 48px);border-top:1px solid var(--line)"><a data-act="close" style="flex:1;text-align:center;padding:20px;font-size:18px;color:var(--ink);border-right:1px solid var(--line)">Don't Allow</a><a data-act="allow" style="flex:1;text-align:center;padding:20px;font-size:18px;color:var(--blue)">Allow</a></div>`,'padding-bottom:0;gap:12px');
+OV.created=()=>sheet(`<div class="row" style="width:100%;justify-content:center;position:relative;margin-top:16px"><div class="grab"></div><button data-act="close" aria-label="Close" style="position:absolute;right:0;top:-12px;width:40px;height:40px;border-radius:50%;background:var(--soft);border:0;display:flex;align-items:center;justify-content:center;color:var(--mute)">${ic('xc','s')}</button></div><div class="ib" style="width:64px;height:64px;margin-top:10px">${ic('sparkle','l')}</div><h2 class="h2 c" style="font-size:24px">Account Created!</h2><p class="p c" style="font-size:14px">Welcome to RusnetVPN! Your account has been created successfully.</p><div class="col" style="width:100%;background:var(--soft);border-radius:20px;padding:18px 16px;gap:14px">${PLANS[0].f.map(t=>`<div class="row" style="gap:14px;font-size:14px">${ic('shield','s','color:var(--blue)')}${t}</div>`).join('')}</div><div class="row" style="width:100%;gap:12px;border:1px solid var(--line);background:#F3F6FB;border-radius:20px;padding:14px"><span class="ib" style="width:42px;height:42px;box-shadow:none">${ic('gift','s')}</span><div class="col" style="flex:1;gap:2px"><b style="font-size:16px;font-weight:600">7-Day Free Trial</b><span class="small">Coba semua fitur premium tanpa biaya.</span></div><a data-act="trialPlan" style="background:#fff;border-radius:12px;padding:10px 12px;font-size:14px;font-weight:600;color:var(--blue)">Mulai</a></div><button class="btn btn-p" data-act="explorePlans">Explore Plans</button>`,{nograb:1,st:'gap:14px'});
 OV.welcomeBack=()=>sheet(`<div class="ib" style="width:64px;height:64px;margin-top:24px">${ic('check','l')}</div><h2 class="h2 c" style="font-size:24px;margin-top:8px">Welcome Back!</h2><p class="p c" style="font-size:14px">You've successfully signed in to your account.</p><div class="row" style="width:100%;gap:16px;background:var(--soft);border-radius:20px;padding:16px;margin-top:10px"><span class="tile" style="width:48px;height:48px;border-radius:50%;background:#E5E7EB">${ic('user')}</span><div class="col" style="gap:6px"><b style="font-size:17px;font-weight:600">${S.name.split(' ').reverse().join(' ')}</b><span style="font-size:14px">${S.email}</span></div></div><button class="btn btn-p" style="margin-top:10px" data-act="close">Get Started</button>`);
 OV.limit=()=>`${S.user==='guest'&&!S.limitNoteHidden?`<div class="note topalert" role="status">${ic('info')}<div style="flex:1"><b>Why is there a daily limit?</b>Free accounts include 3 sessions per day. Upgrade to Premium for unlimited connections, faster servers, and no bandwidth caps.</div><button class="alert-x" data-act="hideLimitNote" aria-label="Dismiss">${ic('x','s')}</button></div>`:''}`+sheet(`<div class="ib" style="width:64px;height:64px">${ic('shield','l')}</div><h2 class="h2 c" style="font-size:24px">You've Hit Today's Free Limit</h2><p class="c" style="margin:0;font-size:16px;line-height:1.6">You've used your ${S.user==='guest'?'500 MB':'1 GB'} of free data for today.</p><button class="btn btn-p" style="margin-top:16px" data-act="upgrade">Upgrade Plan — Unlimited Access</button><a class="small u" style="color:var(--mute);font-size:14px" data-act="close">Come Back Tomorrow</a><p class="small c row" style="gap:6px;margin:8px 0 0;font-size:14px;color:var(--ink)">${ic('info','s','width:14px;height:14px')}Free data resets daily at midnight</p>`,{nograb:1,st:'padding-top:30px'});
 OV.trial=()=>sheet(`<h2 class="h1" style="align-self:flex-start;font-size:26px">7 Days Free Trial</h2><p class="p" style="font-size:16px;align-self:flex-start;margin-top:-4px">Try Premium for free, no charge today</p><div class="col" style="gap:18px;margin:12px 0 10px;align-self:flex-start">${['Unlimited Data','All 50+ Countries','5 Simultaneous Devices'].map(t=>`<div class="dot-li">${t}</div>`).join('')}</div><button class="btn btn-p" data-act="trialPlan">Start Free Trial</button><a class="small c" style="color:var(--mute);font-size:13px" data-act="close">No thanks, continue free</a>`,{nograb:1,st:'padding:34px 24px 26px;gap:12px'});
 OV.notif=()=>modal(`<div class="ib sq" style="width:64px;height:64px;border-radius:16px;box-shadow:none">${ic('bell','l')}</div><h2 class="h2 c" style="font-size:24px;margin-top:6px">Stay Connected</h2><p class="p c" style="font-size:14px">Enable notifications to get alerts when your VPN disconnects or your trial is about to expire.</p><button class="btn btn-p" style="margin-top:8px" data-act="close">Allow Notifications</button><a class="small u" style="color:var(--mute);font-size:14px" data-act="close">Maybe Later</a>`,'padding:32px 32px 40px');
-OV.rate=()=>modal(`<div class="ib sq" style="width:64px;height:64px;border-radius:16px;box-shadow:none">${ic('xc','l')}</div><h2 class="h2 c" style="font-size:24px;margin-top:6px">Enjoying VesperVPN?</h2><p class="p c" style="font-size:14px">Rate us on the App Store to help others discover us!</p><div class="stars" style="gap:10px;margin:8px 0">${[1,2,3,4,5].map(n=>`<button data-act="star" data-arg="${n}" aria-label="${n} stars">${ic('star',n<=S.stars?'on':'','width:32px;height:32px')}</button>`).join('')}</div><button class="btn btn-p" data-act="close">Rate Now</button><a class="small u" style="color:var(--mute);font-size:14px" data-act="close">Not Now</a>`,'padding:32px 32px 40px');
-OV.rateSheet=()=>sheet(`<div style="width:64px;height:64px;border-radius:50%;background:var(--grad);margin-top:30px"></div><h2 class="h2 c" style="font-size:24px">Enjoying VesperVPN?</h2><p class="p c" style="font-size:17px">Your feedback helps us improve!</p><div class="stars" style="gap:16px;margin-top:20px">${[1,2,3,4,5].map(n=>`<button data-act="star" data-arg="${n}" aria-label="${n} stars">${ic('star',n<=S.stars?'on':'','width:36px;height:36px')}</button>`).join('')}</div><p class="small" style="margin:6px 0 14px">Tap a star to rate</p><button class="btn btn-p" data-act="close" ${S.stars?'':'disabled'}>Submit Rating</button><a style="color:var(--mute);font-size:16px;font-weight:600;margin-top:8px" data-act="close">Maybe Later</a>`,{nograb:1});
+OV.rate=()=>modal(`<div class="ib sq" style="width:64px;height:64px;border-radius:16px;box-shadow:none">${ic('xc','l')}</div><h2 class="h2 c" style="font-size:24px;margin-top:6px">Enjoying RusnetVPN?</h2><p class="p c" style="font-size:14px">Rate us on the App Store to help others discover us!</p><div class="stars" style="gap:10px;margin:8px 0">${[1,2,3,4,5].map(n=>`<button data-act="star" data-arg="${n}" aria-label="${n} stars">${ic('star',n<=S.stars?'on':'','width:32px;height:32px')}</button>`).join('')}</div><button class="btn btn-p" data-act="close">Rate Now</button><a class="small u" style="color:var(--mute);font-size:14px" data-act="close">Not Now</a>`,'padding:32px 32px 40px');
+OV.rateSheet=()=>sheet(`<div style="width:64px;height:64px;border-radius:50%;background:var(--grad);margin-top:30px"></div><h2 class="h2 c" style="font-size:24px">Enjoying RusnetVPN?</h2><p class="p c" style="font-size:17px">Your feedback helps us improve!</p><div class="stars" style="gap:16px;margin-top:20px">${[1,2,3,4,5].map(n=>`<button data-act="star" data-arg="${n}" aria-label="${n} stars">${ic('star',n<=S.stars?'on':'','width:36px;height:36px')}</button>`).join('')}</div><p class="small" style="margin:6px 0 14px">Tap a star to rate</p><button class="btn btn-p" data-act="close" ${S.stars?'':'disabled'}>Submit Rating</button><a style="color:var(--mute);font-size:16px;font-weight:600;margin-top:8px" data-act="close">Maybe Later</a>`,{nograb:1});
 OV.signout=()=>modal(`<h2 class="h2 c" style="font-size:20px">Sign Out?</h2><p class="p c" style="font-size:16px;line-height:1.6">Are you sure you want to sign out of your account?</p><div class="row" style="gap:12px;width:100%;margin-top:22px"><button class="btn btn-g" data-act="close">Cancel</button><button class="btn btn-p" data-act="signout">Sign Out</button></div>`,'gap:12px;padding:26px 24px');
 OV.delete=()=>modal(`<div class="ib" style="width:64px;height:64px;background:#FFF1F1;color:var(--err);box-shadow:none">${ic('trash','l')}</div><h2 class="h2 c" style="font-size:24px">Delete Account</h2><p class="p c" style="font-size:16px;line-height:1.6">Are you sure you want to delete your account? This action cannot be undone.</p><span class="small" style="margin:4px 0">Step 2 of 2</span>${fld('Enter your password to confirm','del-pw',{type:'password',ph:'Password',fst:'width:100%'})}<button class="btn btn-p" id="delBtn" data-act="doDelete" disabled style="margin-top:6px">Delete Account</button><button class="btn btn-o" data-act="close" style="color:var(--err);border-color:var(--err)">Cancel</button>`,'gap:12px');
 OV.cancelled=()=>sheet(`<div style="width:88px;height:88px;border-radius:50%;background:#E8F5E9;display:flex;align-items:center;justify-content:center;margin-top:30px"><div style="width:56px;height:56px;border-radius:50%;background:#4CAF50;color:#fff;display:flex;align-items:center;justify-content:center">${ic('check','','stroke-width:2.4')}</div></div><h2 class="h1 c" style="font-size:28px;margin-top:10px">Subscription Cancelled</h2><p class="p c" style="font-size:14px">Your subscription has been cancelled. You still have access until 12 March 2026.</p><button class="btn btn-p" style="margin-top:14px" data-act="tab" data-arg="home">Back to Home</button><a class="u" style="color:var(--mute);font-size:17px;font-weight:600" data-act="tab" data-arg="subscription">View Subscription Details</a>`,{lock:1});
 OV.setup=()=>{const s=profile().setup||{},d=setupDone(s),all=d===SETUP.length;return sheet(`
 <div class="row" style="gap:14px;width:100%;margin-top:6px"><div style="position:relative;width:56px;height:56px;flex:none">${ring(d,SETUP.length,56)}<b style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:15px">${d}/${SETUP.length}</b></div>
-<div class="col" style="gap:2px;flex:1"><h2 class="h2" style="font-size:22px">${all?'You\'re all set!':'Get started with VesperVPN'}</h2><span class="small">${all?'Your VPN is ready. Stay safe online.':`${SETUP.length-d} steps left to finish setup`}</span></div></div>
+<div class="col" style="gap:2px;flex:1"><h2 class="h2" style="font-size:22px">${all?'You\'re all set!':'Get started with RusnetVPN'}</h2><span class="small">${all?'Your VPN is ready. Stay safe online.':`${SETUP.length-d} steps left to finish setup`}</span></div></div>
 <div class="setlist" role="list">${SETUP.map(x=>{const done=!!s[x.k];return `<div class="setitem ${done?'done':''}" role="listitem"><span class="setchk" aria-hidden="true">${done?ic('check','s'):''}</span><div class="col" style="flex:1;gap:2px;min-width:0"><b>${x.t}</b><span class="small">${x.s}</span></div>${!done&&x.go?`<button class="setgo" data-act="${x.go}" aria-label="${x.t}">Start</button>`:`<span class="sr-only">${done?'Done':''}</span>`}</div>`}).join('')}</div>
 ${all?`<button class="btn btn-p" data-act="hideSetup">Finish</button>`:`<button class="clink" style="font-size:15px" data-act="hideSetup">Hide checklist</button>`}`,{st:'gap:16px;align-items:stretch'})};
 OV.signinContinue=()=>sheet(`<h2 class="h2 c" style="font-size:26px">Sign In to Continue</h2><p class="c" style="margin:0;font-size:17px;line-height:1.5">Create a free account or sign in to activate your plan.</p><button class="btn btn-p" style="margin-top:8px" data-act="toSigninBack">Sign In</button><button class="btn btn-o" data-act="toSignupBack">${ic('alert')}Create Account</button><span style="font-size:15px;margin:6px 0">or</span><button class="btn btn-o" data-act="google"><span class="gl">G</span>Continue with Google</button><p class="small c" style="margin:8px 0 0;color:var(--ink)">By continuing you agree to our <a class="u" style="color:var(--ink)" data-act="go" data-arg="terms">Terms &amp; Privacy Policy</a></p>`,{nograb:1,st:'padding-top:36px;gap:14px'});
@@ -763,7 +788,7 @@ document.addEventListener('scroll',e=>{if($('#coach')&&e.target.classList&&e.tar
 
 /* ================= getting-started checklist (new accounts) ================= */
 const SETUP=[
- {k:'account',t:'Create your account',s:'You\'re in. Welcome to VesperVPN!'},
+ {k:'account',t:'Create your account',s:'You\'re in. Welcome to RusnetVPN!'},
  {k:'connect',t:'Connect to the VPN',s:'Tap Connect on Home to secure your traffic.',go:'tourConnect'},
  {k:'server',t:'Choose a server location',s:'Pick a country and city in Server List.',go:'setupServers'},
  {k:'fav',t:'Add a favorite server',s:'Tap the heart next to a country.',go:'setupServers'},
@@ -773,7 +798,7 @@ const setupDone=s=>SETUP.filter(x=>s[x.k]).length;
 function markSetup(k){const s=setup();if(!s||s[k])return;s[k]=true;const d=setupDone(s);
   $('#live')&&($('#live').textContent=`Checklist: ${SETUP.find(x=>x.k===k).t} done. ${d} of ${SETUP.length} complete.`);
   if(d===SETUP.length)S.setupCelebrate=true}
-const ring=(d,n,size=44)=>{const r=size/2-4,C=2*Math.PI*r;return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true" style="transform:rotate(-90deg)"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="#DCE5FB" stroke-width="4"/><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="url(#rg)" stroke-width="4" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-d/n)}" style="transition:stroke-dashoffset .5s"/><defs><linearGradient id="rg"><stop offset="0" stop-color="#1E3FAE"/><stop offset="1" stop-color="#4361EE"/></linearGradient></defs></svg>`};
+const ring=(d,n,size=44)=>{const r=size/2-4,C=2*Math.PI*r;return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" aria-hidden="true" style="transform:rotate(-90deg)"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="#DCE5FB" stroke-width="4"/><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="url(#rg)" stroke-width="4" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-d/n)}" style="transition:stroke-dashoffset .5s"/><defs><linearGradient id="rg"><stop offset="0" stop-color="#B3121F"/><stop offset="1" stop-color="#FF4D4D"/></linearGradient></defs></svg>`};
 
 /* ================= render & navigation ================= */
 let lastScreen=null;
@@ -815,7 +840,7 @@ function enter(s,from){
   if(s==='home'&&S.setupCelebrate&&!S.ov){S.setupCelebrate=false;S.ov='setup'}
   if(s==='emailSupport'){S.sentEmail=null;S.topic=null}
   if(s==='sales'){S.salesSent=null;S.teamSize=null}
-  if(s==='chat'&&!S.chat.length)S.chat=[{t:"Hi, I'm Maya from VesperVPN Support. How can I help you today?"}];
+  if(s==='chat'&&!S.chat.length)S.chat=[{t:"Hi, I'm Maya from RusnetVPN Support. How can I help you today?"}];
   if(s==='settings')S.info=from==='split'?'split':null;
   if(s==='menu'&&!from&&S.user==='premium'&&!S.rateMenu&&S.rateHome){S.rateMenu=true;S.stars=0;S.ov='rateSheet'}
 }
@@ -906,7 +931,6 @@ const A={
   hideSetup:()=>{const p=profile();if(p.setup)p.setup.hidden=true;S.ov=null;render()},
   hideHint:()=>{S.guestHint=false;render()},
   guestTip:()=>{S.guestTipShow=!S.guestTipShow;render()},
-  power:()=>{if(S.vpn==='on')VPN.disconnect();else if(S.vpn==='connecting')VPN.cancel();else VPN.connect()},
   connect:()=>VPN.connect(),
   allow:()=>{S.perm=true;S.ov=null;VPN.connect()},
   cancelConn:()=>VPN.cancel(),
@@ -1025,7 +1049,7 @@ setInterval(()=>{
   if(S.vpn!=='on')return;
   if(isFree()){S.data=Math.max(0,S.data-10);const d=$('#dleft');if(d)d.textContent=Math.round(S.data)+' MB left today';
     if(S.data<=0){VPN.disconnect(false);return openOv('limit')}}
-  const t=$('#timer');if(t)t.textContent='Connected · '+fmt(Date.now()-S.since);
+  const t=$('#timer');if(t)t.textContent=fmt(Date.now()-S.since);
   save();
 },1000);
 

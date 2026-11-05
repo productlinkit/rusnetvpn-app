@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RusnetVPN · Welcome C</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#E11D2E;--grad:linear-gradient(90deg,#FF3B2F 0%,#E8263F 55%,#DC1A4B 100%);--ink:#111827;--sub:#4B5563;--mute:#6B7280}
+*{box-sizing:border-box}
+body{margin:0;min-height:100dvh;display:flex;align-items:center;justify-content:center;background:#EDE7E8;font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink)}
+.ph{position:relative;width:390px;height:844px;border-radius:44px;overflow:hidden;background:#F8F9FB;box-shadow:0 40px 80px -40px rgba(60,10,15,.45),0 0 0 1px rgba(23,18,26,.06)}
+@media (max-width:430px){body{background:#F8F9FB;align-items:stretch}.ph{width:100vw;height:100dvh;border-radius:0;box-shadow:none}}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:inherit;color:inherit}
+button:focus-visible{outline:2px solid #B3121F;outline-offset:3px}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;display:block;flex:none}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+@keyframes zoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+
+/* slides: photo card + copy move together */
+.track{position:absolute;left:0;top:0;bottom:200px;display:flex;width:300%;transition:transform .55s cubic-bezier(.3,.8,.3,1);touch-action:pan-y}
+.track.drag{transition:none}
+.sl{width:33.3334%;display:flex;flex-direction:column;align-items:center;padding:50px 32px 0}
+.card{position:relative;width:min(288px,100%);aspect-ratio:572/767;border-radius:36px;overflow:hidden;flex:none;background:#E9E4E6;
+  box-shadow:0 0 90px 10px rgba(255,90,78,.12),0 30px 50px -34px rgba(60,10,15,.55)}
+.card img{width:100%;height:100%;object-fit:cover;display:block}
+.sl.on .card img{animation:zoom 6s cubic-bezier(.2,.6,.3,1) both}
+.copy{margin-top:34px;text-align:center}
+.sl .copy>*{opacity:0}
+.sl.on .copy>*{opacity:1;animation:rise .6s cubic-bezier(.2,.8,.2,1) both}
+.sl.on .copy>*:nth-child(2){animation-delay:.08s}
+.logo{height:38px;width:auto;display:block;margin:30px auto 0}
+.copy h1{margin:0;font-size:24px;font-weight:800;letter-spacing:-.025em;line-height:1.28}
+.copy h1 em{font-style:normal;color:var(--red)}
+.copy p{margin:12px auto 0;max-width:300px;font-size:15px;line-height:1.55;color:var(--sub)}
+.sl:first-child .copy p{margin-top:16px;font-size:14.5px}
+
+/* controls */
+.ctl{position:absolute;left:32px;right:32px;bottom:34px}
+.prog{display:flex;align-items:center;justify-content:space-between;margin:0 8px 26px}
+.dots{display:flex;gap:7px}
+.dots button{width:7px;height:7px;padding:0;border:0;border-radius:99px;background:#CBD2DC;transition:width .35s cubic-bezier(.3,.8,.3,1),background .3s}
+.dots button.on{width:28px;background:linear-gradient(90deg,#FF3B2F,#E8263F)}
+.step{font-size:13px;font-weight:500;color:var(--mute);font-variant-numeric:tabular-nums}
+.go{position:relative;width:100%;height:56px;border:0;border-radius:24px;background:var(--grad);color:#fff;font-size:17px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:12px;overflow:hidden;
+  box-shadow:0 18px 30px -16px rgba(232,38,63,.75)}
+.go:after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transform:skewX(-20deg);animation:shine 3.2s ease-in-out 1s infinite}
+@keyframes shine{0%,60%{left:-40%}100%{left:130%}}
+.go svg{transition:transform .3s}.go:hover svg{transform:translateX(3px)}
+.go:active{transform:scale(.98)}
+.alt{display:block;margin:20px auto 0;border:0;background:none;font-size:14px;font-weight:500;color:var(--sub);padding:6px}
+.alt b{color:var(--red);font-weight:700;margin-left:2px}
+.toast{position:absolute;left:50%;top:60px;z-index:6;padding:11px 16px;border-radius:999px;background:#1C171D;color:#fff;font-size:13px;font-weight:600;white-space:nowrap;transform:translate(-50%,-10px);opacity:0;pointer-events:none;transition:.3s}
+.toast.show{transform:translate(-50%,0);opacity:1}
+/* shorter phones: shrink the photo so the copy clears the controls */
+@media (max-height:780px){.sl{padding-top:28px}.card{width:min(236px,100%)}.copy{margin-top:22px}.logo{margin-top:18px}}
+@media (max-height:680px){.card{width:min(190px,100%)}.copy h1{font-size:21px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="ph" id="ph">
+  <div class="track" id="track">
+    <section class="sl on" aria-label="Step 1 of 3">
+      <div class="card"><img src="../img/welcome-1.jpg" alt="A hand holding a phone showing RusnetVPN connected"></div>
+      <div class="copy"><img class="logo" src="../img/rusnet-logo-light.png" alt="RusnetVPN"><p>Next-Gen Privacy &amp; Borderless Ultra High-Speed Protection</p></div>
+    </section>
+    <section class="sl" aria-label="Step 2 of 3">
+      <div class="card"><img src="../img/welcome-2.jpg" alt="A woman in a red jacket showing the RusnetVPN server list" loading="lazy"></div>
+      <div class="copy"><h1>Absolute Privacy &amp;<br><em>Zero-Log Architecture</em></h1><p>Your digital footprint stays 100% anonymous. We never track, store, or share your browsing history.</p></div>
+    </section>
+    <section class="sl" aria-label="Step 3 of 3">
+      <div class="card"><img src="../img/welcome-3.jpg" alt="Two hands holding phones against a blue sky" loading="lazy"></div>
+      <div class="copy"><h1>6,500+ Ultra-Fast Servers<br>In <em>110+ Global Locations</em></h1><p>Bypass geo-restrictions, stream in 4K UHD, and game with ultra-low latency ping everywhere.</p></div>
+    </section>
+  </div>
+
+  <div class="ctl">
+    <div class="prog"><div class="dots" role="tablist"><button class="on" aria-label="Step 1" aria-selected="true"></button><button aria-label="Step 2" aria-selected="false"></button><button aria-label="Step 3" aria-selected="false"></button></div><span class="step" id="step" aria-live="polite">Step 1 of 3</span></div>
+    <button class="go" id="go">Get Started<svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <button class="alt" id="alt">Already have an account?<b>Log in</b></button>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+</div>
+<script>
+const $=id=>document.getElementById(id),ph=$('ph'),track=$('track'),sls=track.querySelectorAll('.sl'),dots=document.querySelectorAll('.dots button');
+let i=0;
+const show=k=>{i=Math.max(0,Math.min(2,k));track.style.transform=`translateX(${-i*100/3}%)`;
+  sls.forEach((s,n)=>{s.classList.toggle('on',n===i);s.setAttribute('aria-hidden',n!==i)});
+  dots.forEach((d,n)=>{d.classList.toggle('on',n===i);d.setAttribute('aria-selected',n===i)});
+  $('step').textContent=`Step ${i+1} of 3`};
+const finish=()=>{ph.style.transition='opacity .35s';ph.style.opacity=0;setTimeout(()=>location.href='SignUpC.html',350)};
+// Get Started moves through the steps, and opens Home on the last one
+$('go').addEventListener('click',()=>i<2?show(i+1):finish());
+dots.forEach((d,n)=>d.addEventListener('click',()=>show(n)));
+let tt;$('alt').addEventListener('click',()=>{const t=$('toast');t.textContent='Log in screen (contoh)';t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1600)});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(i+1);if(e.key==='ArrowLeft')show(i-1)});
+/* swipe */
+let x0=null,dx=0;
+track.addEventListener('pointerdown',e=>{x0=e.clientX;dx=0;track.classList.add('drag');track.setPointerCapture(e.pointerId)});
+track.addEventListener('pointermove',e=>{if(x0==null)return;dx=e.clientX-x0;track.style.transform=`translateX(calc(${-i*100/3}% + ${dx}px))`});
+const end=()=>{if(x0==null)return;track.classList.remove('drag');x0=null;show(Math.abs(dx)>50?i+(dx<0?1:-1):i)};
+track.addEventListener('pointerup',end);track.addEventListener('pointercancel',end);
+track.addEventListener('dragstart',e=>e.preventDefault());
+show(0);
+</script>
+</body>
+</html>
