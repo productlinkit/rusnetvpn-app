@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#FFFFFF">
 <title>RusnetVPN</title>
-<link rel="icon" href="img/rusnet-mark.png">
+<link rel="icon" href="img/rusnet-mark.png?v=3">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--red:#E11D2E;--red-d:#9B1220;--red-t:#C70F21;--grad:linear-gradient(135deg,#B3121F 0%,#E11D2E 52%,#FF5A4E 100%);--ink:#17121A;--sub:#6B5E63;--faint:#B9AEB2;--line:#E8D9DB;--err:#C70F21;
@@ -607,7 +607,7 @@ const IC={
   devices:'<rect x="2" y="4" width="14" height="10" rx="2"/><path d="M6 18h6"/><rect x="17" y="8" width="5" height="12" rx="1.5"/>',inf:'<path d="M7 9a3 3 0 1 0 0 6c3 0 7-6 10-6a3 3 0 1 1 0 6c-3 0-7-6-10-6z"/>'};
 const ic=(n,st='')=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true"${st?` style="${st}"`:''}>${IC[n]}</svg>`;
 const GOOGLE='<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#4285F4" d="M23 12.3c0-.8-.1-1.6-.2-2.3H12v4.3h6.2a5.3 5.3 0 0 1-2.3 3.5v2.9h3.7c2.2-2 3.4-5 3.4-8.4z"/><path fill="#34A853" d="M12 23.5c3.1 0 5.7-1 7.6-2.8l-3.7-2.9c-1 .7-2.3 1.1-3.9 1.1-3 0-5.5-2-6.4-4.7H1.8v3A11.5 11.5 0 0 0 12 23.5z"/><path fill="#FBBC05" d="M5.6 14.2a6.9 6.9 0 0 1 0-4.4v-3H1.8a11.5 11.5 0 0 0 0 10.4z"/><path fill="#EA4335" d="M12 5.1c1.7 0 3.2.6 4.4 1.7l3.3-3.3A11.5 11.5 0 0 0 1.8 6.8l3.8 3C6.5 7.1 9 5.1 12 5.1z"/></svg>';
-const LOGO='<img class="logo" src="img/rusnet-logo-light.png" alt="RusnetVPN">';
+const LOGO='<img class="logo" src="img/rusnet-logo-light.png?v=3" alt="RusnetVPN">';
 
 /* ================= app state ================= */
 // user: null (signed out) · {guest:true} · {name,email,plan:'free'}
@@ -760,9 +760,9 @@ const SCREENS={};
 
 /* -------- splash -------- */
 SCREENS.splash={html:()=>`
-<div class="orb" role="img" aria-label="RusnetVPN is starting"><span class="rip"></span><span class="rip r2"></span><span class="halo"></span><img class="mk" src="img/rusnet-mark-white.png" alt=""></div>
+<div class="orb" role="img" aria-label="RusnetVPN is starting"><span class="rip"></span><span class="rip r2"></span><span class="halo"></span><img class="mk" src="img/rusnet-mark-white.png?v=3" alt=""></div>
 <div class="shadow"></div>
-<p class="word"><img src="img/rusnet-wordmark-light.png" alt="RusnetVPN"></p>
+<p class="word"><img src="img/rusnet-wordmark-light.png?v=3" alt="RusnetVPN"></p>
 <p class="tag">Private. Fast. One tap away.</p>
 <span class="load"><i></i></span><span class="ver">Version 1.2.0</span>`,
   init(){T.after(()=>go(user?'home':'welcome',{},'replace'),3100)}};
@@ -922,7 +922,7 @@ ${helpLine}`,
 /* -------- home -------- */
 const STATE={off:['Your connection is not private','Not connected','Connect'],connecting:['Securing your connection','Connecting…','Cancel'],on:['Your connection is private','Connected','Disconnect']};
 SCREENS.home={title:'Home',fade:'#FFF5F3',html:()=>`
-<div class="top"><img src="img/rusnet-wordmark-light.png" alt="RusnetVPN"><span class="tr">${limited()?`<button class="q-up js-qup">${ic('crown')}Upgrade</button>`:''}<button class="av js-me" aria-label="Open menu">${initial()||ic('user','width:20px;height:20px')}</button></span></div>
+<div class="top"><img src="img/rusnet-wordmark-light.png?v=3" alt="RusnetVPN"><span class="tr">${limited()?`<button class="q-up js-qup">${ic('crown')}Upgrade</button>`:''}<button class="av js-me" aria-label="Open menu">${initial()||ic('user','width:20px;height:20px')}</button></span></div>
 <div class="chip" role="status"><i></i><span></span></div>
 <div class="globe" aria-hidden="true"><svg viewBox="0 0 300 300">
   <defs><radialGradient id="glF" cx="40%" cy="32%" r="75%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#FDE4E1"/><stop offset="1" stop-color="#F6C3BE"/></radialGradient>
@@ -1269,7 +1269,7 @@ SCREENS.chat={title:'Live chat',cls:'s-sub s-chat',html:()=>`
 /* -------- about + terms -------- */
 SCREENS.about={title:'About us',cls:'s-sub',html:()=>`
 ${bar('About us')}
-<div class="brandbox"><img src="img/rusnet-logo-light.png" alt="RusnetVPN"><span>Version 1.2.0 (build 1206)</span></div>
+<div class="brandbox"><img src="img/rusnet-logo-light.png?v=3" alt="RusnetVPN"><span>Version 1.2.0 (build 1206)</span></div>
 <p class="intro" style="text-align:center">RusnetVPN keeps your connection private and fast, with servers in 110+ locations and a strict no-logs policy.</p>
 <p class="lbl">More</p>
 <div class="card">
