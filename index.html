@@ -750,6 +750,17 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stro
   .wm-key span+span i{background:#3E66D0;box-shadow:0 0 0 3px #fff,0 0 0 4px #C3D3F5}
 }
 
+/* red → blue wash (same as the LP): brand moments only — profile, purchase summary, Premium success, live help, plan tags */
+:root{--wash:linear-gradient(125deg,#E12730 0%,#D21F2E 34%,#A61A3E 60%,#5B2A7A 82%,#2F4FC4 100%)}
+.s-menu .pro{background:radial-gradient(60% 70% at 0% 0%,rgba(255,150,140,.35),transparent 65%),var(--wash);box-shadow:0 26px 40px -24px rgba(91,42,122,.75),inset 0 1px 0 rgba(255,255,255,.3)}
+.s-menu .pro .av{color:#A61A3E}
+.s-checkout .sum{border:0;color:#fff;background:radial-gradient(60% 80% at 0% 0%,rgba(255,150,140,.35),transparent 65%),var(--wash);box-shadow:0 24px 40px -24px rgba(91,42,122,.7)}
+.s-checkout .ln.sm{color:rgba(255,255,255,.8)}
+.s-checkout .ln.tot{border-top-color:rgba(255,255,255,.25)}
+.s-paid .orb{background:radial-gradient(circle at 32% 24%,rgba(255,190,180,.9) 0%,transparent 34%),var(--wash);box-shadow:inset 0 -16px 34px rgba(20,10,50,.35),inset 0 10px 22px rgba(255,255,255,.3),0 40px 60px -26px rgba(91,42,122,.8)}
+.s-support .ch .tl:not(.dk){background:var(--wash)}
+.s-plans .tag:not(.cur):not(.ol){background:var(--wash)}
+
 @media (prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01s!important;animation-delay:0s!important;animation-iteration-count:1!important;transition:none!important}.s-splash .rip{display:none}}
 </style>
 </head>
